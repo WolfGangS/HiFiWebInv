@@ -29,7 +29,7 @@ on  30/9/2017
 
     var html = Script.resolvePath("html/inv.html?" + Date.now());
     var inventory = new OverlayWebWindow({
-        title: "Editor",
+        title: "Inventory",
         source: html,
         width: 500,
         height: 800,
