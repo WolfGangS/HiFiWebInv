@@ -28,7 +28,7 @@ $file = count($path) > 1 ? $path[1] : null;
 
 $path = "inv" . $path[0];
 while (substr($path, strlen($path) - 1) == "/") {
-	$path = substr($path, 0, strlen($path) - 2);
+	$path = substr($path, 0, strlen($path) - 1);
 }
 print_r($path);
 
