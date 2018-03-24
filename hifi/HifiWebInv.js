@@ -59,7 +59,7 @@ on  30/9/2017
         //Controller.mouseReleaseEvent.disconnect(mouseReleaseEvent);
         button.clicked.disconnect(toggleWebState);
         tablet.removeButton(button);
-        editorUI.close();
+        inventory.close();
     });
 
 })();
