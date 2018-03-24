@@ -29,7 +29,7 @@ function loadInventory(data) {
             if (path.length > 0) {
                 var i;
                 path = path.split("/");
-                for (i = 0;)
+                //for (i = 0;)
             } else {
                 if ()
                     inventory
