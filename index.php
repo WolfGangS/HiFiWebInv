@@ -15,6 +15,18 @@ function curPageURL() {
 	return $pageURL;
 }
 
+function startsWith($haystack, $needle) {
+	$length = strlen($needle);
+	return (substr($haystack, 0, $length) === $needle);
+}
+
+function endsWith($haystack, $needle) {
+	$length = strlen($needle);
+
+	return $length === 0 ||
+		(substr($haystack, -$length) === $needle);
+}
+
 $url = parse_url(curPageURL());
 
 if (empty($url["path"])) {
@@ -66,7 +78,9 @@ case 'GET':
 			header('Pragma: public');
 			header('Content-Length: ' . filesize($path));
 		}
-
+		if (endsWith($path, ".json")) {
+			header('Content-Type: application/json');
+		}
 		readfile($path);
 		die();
 	}
