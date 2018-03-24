@@ -62,4 +62,12 @@ on  30/9/2017
         inventory.close();
     });
 
+    inventory.webEventReceived.connect(function(msg) {
+        msg = JSON.parse(msg);
+    });
+
+    inventory.visibleChanged.connect(function() {
+        setWebState(inventory.isVisible());
+    });
+
 })();
