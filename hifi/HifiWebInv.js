@@ -57,7 +57,7 @@ on  30/9/2017
         }
     });
 
-    setupWebInv() {
+    function setupWebInv() {
         if (inventory == null) {
             var inventory = new OverlayWebWindow({
                 title: "Inventory",
