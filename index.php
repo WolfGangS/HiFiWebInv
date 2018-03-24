@@ -30,6 +30,8 @@ $path = "inv" . $path[0];
 while (substr($path, strlen($path) - 1) == "/") {
 	$path = substr($path, 0, strlen($path) - 1);
 }
+$path .= "/";
+
 print_r($path);
 
 echo "\n";
@@ -43,7 +45,7 @@ case 'GET':
 				continue;
 			}
 
-			if (is_file($path)) {
+			if (is_file($path . $item)) {
 				$contents["files"][] = $item;
 			} else {
 				$contents["dirs"][] = $item;
