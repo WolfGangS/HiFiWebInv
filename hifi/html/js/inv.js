@@ -138,13 +138,14 @@ function folderRender(parent, folder, path) {
         let i = items[j];
         p = path + "/" + i;
         let o = folder[i];
+        let _p = p;
         sha1(p).then(function(hash) {
             if (typeof o == "string") {
-                let e = createFindSpan(parent, p, hash, i, "file");
+                let e = createFindSpan(parent, _p, hash, i, "file");
             } else {
-                let e = createFindSpan(parent, p, hash, i, "folder");
-                let d = createFindDiv(e, p, hash);
-                folderRender(d, o, p);
+                let e = createFindSpan(parent, _p, hash, i, "folder");
+                let d = createFindDiv(e, _p, hash);
+                folderRender(d, o, _p);
             }
         });
 
