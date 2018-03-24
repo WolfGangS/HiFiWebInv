@@ -83,7 +83,7 @@ function createFindSpan(parent, path, hash, name, type) {
     if (e.length < 1) {
         e = $("<span>");
         e.attr("id", hash);
-        e.data("path", path);
+        e.attr("data-path", path);
         e.append($("<i>").addClass("fas fa-" + type));
         e.addClass(type);
         e.append(" " + name);
@@ -106,7 +106,7 @@ function createFindDiv(span, path, hash) {
     let e = $("#" + hash);
     if (e.length < 1) {
         e = $("<div>");
-        e.data("path", path);
+        e.attr("data-path", path);
         e.attr("id", hash);
         e.addClass("folder-content");
         e.hide();
