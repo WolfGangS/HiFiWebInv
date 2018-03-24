@@ -42,6 +42,18 @@ while (substr($path, strlen($path) - 1) == "/") {
 	$path = substr($path, 0, strlen($path) - 1);
 }
 
+$path = explode('/', $path);
+
+$_path = [];
+
+foreach ($path as $p) {
+	if (substr($p, 0, 1) != ".") {
+		$_path[] = $p;
+	}
+}
+
+$path = implode("/", $_path);
+
 $response = ["path" => $path];
 
 switch ($_SERVER['REQUEST_METHOD']) {
