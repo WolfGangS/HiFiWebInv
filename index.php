@@ -17,4 +17,22 @@ function curPageURL() {
 
 $url = parse_url(curPageURL());
 
-print_r($url);
+if (empty($url["path"])) {
+	die();
+}
+
+$path = explode('.', $url["path"]);
+
+$file = count($path > 1) ? $path[1] : null;
+
+$path = "inv/" . $path[0];
+
+switch ($_SERVER['REQUEST_METHOD']) {
+case 'GET':
+	if (is_dir($path)) {
+		print_r(scandir($path));
+	} else if (is_file($path)) {
+		echo $path;
+	}
+	break;
+}
