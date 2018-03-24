@@ -1,4 +1,3 @@
-<pre>
 <?php
 
 function curPageURL() {
@@ -31,11 +30,9 @@ while (substr($path, strlen($path) - 1) == "/") {
 	$path = substr($path, 0, strlen($path) - 1);
 }
 
-print_r($path);
-
 echo "\n";
 
-$response = [];
+$response = ["path" => $path];
 
 switch ($_SERVER['REQUEST_METHOD']) {
 case 'GET':
@@ -64,6 +61,5 @@ case 'GET':
 	}
 	break;
 }
-print_r($response);
-?>
-</pre>
+header('Content-Type: application/json');
+echo json_encode($response, JSON_PRETTY_PRINT);
