@@ -35,8 +35,8 @@ on  30/9/2017
     var tablet = Tablet.getTablet("com.highfidelity.interface.tablet.system");
     //print(JSON.stringify(Object.keys(tablet)));
     var button = tablet.addButton({
-        icon: "https://wolfgangs.github.io/HiFiPowerEdit/spanner-white.svg",
-        activeIcon: "https://wolfgangs.github.io/HiFiPowerEdit/spanner.svg",
+        icon: "https://wolfgangs.github.io/HiFiWebInv/folder-white.svg",
+        activeIcon: "https://wolfgangs.github.io/HiFiWebInv/folder-black.svg",
         text: "Inventory",
         isActive: false,
         sortOrder: 30
