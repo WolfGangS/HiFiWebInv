@@ -55,9 +55,15 @@ case 'GET':
 		finfo_close($finfo);
 		$response["dir"] = $contents;
 	} else if (is_file($path)) {
-		$finfo = finfo_open(FILEINFO_MIME_TYPE);
-		$response["file"] = finfo_file($finfo, $path);
-		finfo_close($finfo);
+		header('Content-Description: File Transfer');
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename="' . basename($path) . '"');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length: ' . filesize($path));
+		readfile($path);
+		die();
 	}
 	break;
 }
