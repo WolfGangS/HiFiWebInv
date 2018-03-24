@@ -31,8 +31,6 @@ function loadInventory(data) {
                 path = path.split("/");
                 //for (i = 0;)
             } else {
-                if ()
-                    inventory
             }
         }
     }
