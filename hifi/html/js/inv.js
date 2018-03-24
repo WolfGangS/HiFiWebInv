@@ -7,6 +7,7 @@ function Api(endpoint){
             console.log(response);
         });
     }
+    return that;
 }
 
 
