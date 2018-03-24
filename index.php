@@ -63,7 +63,7 @@ case 'GET':
 	if (is_dir($path)) {
 		$path .= "/";
 		$_contents = scandir($path);
-		$contents = [];
+		$contents = ["files" => [], "dirs" => []];
 		$finfo = finfo_open(FILEINFO_MIME_TYPE);
 		foreach ($_contents as $item) {
 			if (substr($item, 0, 1) == ".") {
