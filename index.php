@@ -22,40 +22,48 @@ if (empty($url["path"])) {
 	die();
 }
 
-$path = explode('.', $url["path"]);
+//$path = explode('.', $url["path"]);
 
 $file = count($path) > 1 ? $path[1] : null;
 
-$path = "inv" . $path[0];
+$path = "inv" . $url["path"];
 while (substr($path, strlen($path) - 1) == "/") {
 	$path = substr($path, 0, strlen($path) - 1);
 }
-$path .= "/";
 
 print_r($path);
 
 echo "\n";
+
+$response = [];
+
 switch ($_SERVER['REQUEST_METHOD']) {
 case 'GET':
 	if (is_dir($path)) {
+		$path .= "/";
 		$_contents = scandir($path);
 		$contents = [];
+		$finfo = finfo_open(FILEINFO_MIME_TYPE);
 		foreach ($_contents as $item) {
 			if (substr($item, 0, 1) == ".") {
 				continue;
 			}
 
 			if (is_file($path . $item)) {
-				$contents["files"][] = $item;
+				$contents["files"][$item] = finfo_file($finfo, $path . $item);
 			} else {
 				$contents["dirs"][] = $item;
 			}
 		}
-		print_r($contents);
+		finfo_close($finfo);
+		$response["dir"] = $contents;
 	} else if (is_file($path)) {
-		echo $path;
+		$finfo = finfo_open(FILEINFO_MIME_TYPE);
+		$response["file"] = finfo_file($finfo, $path);
+		finfo_close($finfo);
 	}
 	break;
 }
+print_r($response);
 ?>
 </pre>
