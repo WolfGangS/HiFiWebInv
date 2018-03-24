@@ -128,7 +128,7 @@ function folderRender(parent, folder, path) {
         let o = folder[i];
         sha1(p).then(function(hash) {
             if (typeof o == "string") {
-                let e = createFindSpan(parent, p, hash i, "file");
+                let e = createFindSpan(parent, p, hash, i, "file");
             } else {
                 let e = createFindSpan(parent, p, hash, i, "folder");
                 let d = createFindDiv(e, p);
