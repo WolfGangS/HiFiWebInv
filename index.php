@@ -24,7 +24,7 @@ if (empty($url["path"])) {
 
 //$path = explode('.', $url["path"]);
 
-$file = count($path) > 1 ? $path[1] : null;
+//$file = count($path) > 1 ? $path[1] : null;
 
 $path = "inv" . $url["path"];
 while (substr($path, strlen($path) - 1) == "/") {
