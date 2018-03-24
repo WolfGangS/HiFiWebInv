@@ -78,12 +78,11 @@ function sha1(str) {
     });
 }
 
-function createFindSpan(parent, path, name, type) {
-    let p = path.split("/").join("_");
-    let e = $("#" + p);
+function createFindSpan(parent, path, hash, name, type) {
+    let e = $("#" + hash);
     if (e.length < 1) {
         e = $("<span>");
-        e.attr("id", p);
+        e.attr("id", hash);
         e.data("path", path);
         e.append($("<i>").addClass("fas fa-" + type));
         e.addClass(type);
@@ -102,13 +101,13 @@ function createFindSpan(parent, path, name, type) {
     return e;
 }
 
-function createFindDiv(span, path) {
-    let p = path.split("/").join("_") + "___folder";
-    let e = $("#" + p);
+function createFindDiv(span, path, hash) {
+    hash += "_folder";
+    let e = $("#" + hash);
     if (e.length < 1) {
         e = $("<div>");
         e.data("path", path);
-        e.attr("id", p);
+        e.attr("id", hash);
         e.addClass("folder-content");
         e.hide();
         e.insertAfter(span);
@@ -144,7 +143,7 @@ function folderRender(parent, folder, path) {
                 let e = createFindSpan(parent, p, hash, i, "file");
             } else {
                 let e = createFindSpan(parent, p, hash, i, "folder");
-                let d = createFindDiv(e, p);
+                let d = createFindDiv(e, p, hash);
                 folderRender(d, o, p);
             }
         });
