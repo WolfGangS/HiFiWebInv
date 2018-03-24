@@ -58,6 +58,19 @@ function loadInventory(path) {
     });
 }
 
+function hex(buffer) {
+    let hexCodes = [];
+    let view = new DataView(buffer);
+    for (let i = 0; i < view.byteLength; i += 4) {
+        let value = view.getUint32(i);
+        let stringValue = value.toString(16);
+        let padding = '00000000';
+        let paddedValue = (padding + stringValue).slice(-padding.length);
+        hexCodes.push(paddedValue);
+    }
+    return hexCodes.join("");
+}
+
 function sha1(str) {
     let buffer = new TextEncoder("utf-8").encode(str);
     return crypto.subtle.digest("SHA-1", buffer).then(function(hash) {
