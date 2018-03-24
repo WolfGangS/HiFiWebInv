@@ -31,14 +31,13 @@ function loadInventory(path) {
                     path = path.split("/");
                     var inv = inventory;
                     for (i = 0; i < path.length; i++) {
-                        if (!inv.hasOwnProperty(path[i])) {
+                        if (!inv.hasOwnProperty(path[i]) || inv[path[i]] == null) {
                             inv[path[i]] = {};
                         }
                         inv = inv[path[i]];
                     }
                     for (var d in data.dirs) {
-                        d = data.dirs[d];
-                        inv[d] = {};
+                        inv[d] = data.dirs[d] > 0 ? {} : null;
                     }
                     for (var f in data.files) {
                         inv[f] = data.files[f];
@@ -46,8 +45,7 @@ function loadInventory(path) {
                 } else {
                     var inv = {};
                     for (var d in data.dirs) {
-                        d = data.dirs[d];
-                        inv[d] = {};
+                        inv[d] = data.dirs[d] > 0 ? {} : null;
                     }
                     for (var f in data.files) {
                         inv[f] = data.files[f];

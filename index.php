@@ -73,7 +73,7 @@ case 'GET':
 			if (is_file($path . $item)) {
 				$contents["files"][$item] = finfo_file($finfo, $path . $item);
 			} else {
-				$contents["dirs"][] = $item;
+				$contents["dirs"][$item] = count(scandir($path . $item));
 			}
 		}
 		finfo_close($finfo);
