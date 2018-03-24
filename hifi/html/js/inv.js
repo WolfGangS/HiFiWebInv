@@ -39,6 +39,6 @@ function loadInventory(data) {
 $(document).ready(function() {
     api = new Api(window.location.href.split("/hifi/html/inv.html")[0]);
     api.get("").success(function(d) {
-        loadInventory("", d);
+        loadInventory(d);
     });
 });
