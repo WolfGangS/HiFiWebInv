@@ -1,2 +1,11 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <pre>
 <?php
-    echo "HELLO FROM HIFI WEB INV WOOO";
+print_r($_SERVER);
+?>
+        </pre>
+    </body>
+</html>
