@@ -31,7 +31,7 @@ on  30/9/2017
     var inventory = new OverlayWebWindow({
         title: "Inventory",
         source: html,
-        width: 500,
+        width: 400,
         height: 800,
         visible: false
     });
