@@ -33,15 +33,15 @@ switch ($_SERVER['REQUEST_METHOD']) {
 case 'GET':
 	if (is_dir($path)) {
 		$_contents = scandir($path);
-        $contents = [];
-		foreach ($_contents as $item {
-			if(is_file($path)){
-                $contents["files"][] = $item;
-            } else {
-                $contents["dirs"][] = $item;
-            }
+		$contents = [];
+		foreach ($_contents as $item) {
+			if (is_file($path)) {
+				$contents["files"][] = $item;
+			} else {
+				$contents["dirs"][] = $item;
+			}
 		}
-        print_r($contents);
+		print_r($contents);
 	} else if (is_file($path)) {
 		echo $path;
 	}
