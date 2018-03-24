@@ -1,3 +1,4 @@
+<pre>
 <?php
 
 function curPageURL() {
@@ -26,13 +27,25 @@ $path = explode('.', $url["path"]);
 $file = count($path) > 1 ? $path[1] : null;
 
 $path = "inv/" . $path[0];
-
+print_r($path);
+echo "\n";
 switch ($_SERVER['REQUEST_METHOD']) {
 case 'GET':
 	if (is_dir($path)) {
-		print_r(scandir($path));
+		$_contents = scandir($path);
+        $contents = [];
+		foreach ($_contents as $item {
+			if(is_file($path)){
+                $contents["files"][] = $item;
+            } else {
+                $contents["dirs"][] = $item;
+            }
+		}
+        print_r($contents);
 	} else if (is_file($path)) {
 		echo $path;
 	}
 	break;
 }
+?>
+</pre>
