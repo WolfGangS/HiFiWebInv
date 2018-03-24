@@ -14,6 +14,6 @@ function Api(endpoint){
 var api = null;
 
 $(document).ready(function(){
-    api = new Api(window.location.href.split("/html/inv.html")[0]);
-    api.get();
+    api = new Api(window.location.href.split("/hifi/html/inv.html")[0]);
+    api.get("");
 });
