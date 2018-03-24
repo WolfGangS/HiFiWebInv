@@ -37,7 +37,7 @@ if (empty($url["path"])) {
 
 //$file = count($path) > 1 ? $path[1] : null;
 
-$path = "inv" . $url["path"];
+$path = $url["path"];
 while (substr($path, strlen($path) - 1) == "/") {
 	$path = substr($path, 0, strlen($path) - 1);
 }
