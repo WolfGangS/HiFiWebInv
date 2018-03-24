@@ -35,6 +35,10 @@ case 'GET':
 		$_contents = scandir($path);
 		$contents = [];
 		foreach ($_contents as $item) {
+			if (substr($item, 0, 1) == ".") {
+				continue;
+			}
+
 			if (is_file($path)) {
 				$contents["files"][] = $item;
 			} else {
