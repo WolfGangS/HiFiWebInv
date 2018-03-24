@@ -22,7 +22,7 @@ on  30/9/2017
 (function() {
 
     console.log("------------------------------")
-    console.log(Script.resourcesPath());
+    console.log(Script.resolvePath("html/inv.html?" + Date.now()));
     console.log("------------------------------")
 
     var isActive = false;
