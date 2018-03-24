@@ -59,7 +59,7 @@ on  30/9/2017
 
     function setupWebInv() {
         if (inventory == null) {
-            var inventory = new OverlayWebWindow({
+            inventory = new OverlayWebWindow({
                 title: "Inventory",
                 source: Script.resolvePath("html/inv.html?" + Date.now()),
                 width: 400,
