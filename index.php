@@ -47,7 +47,7 @@ $path = explode('/', $path);
 $_path = [];
 
 foreach ($path as $p) {
-	if (substr($p, 0, 1) != ".") {
+	if (substr($p, 0, 1) != "." && !empty($p)) {
 		$_path[] = $p;
 	}
 }
@@ -55,6 +55,8 @@ foreach ($path as $p) {
 $path = implode("/", $_path);
 
 $response = ["path" => $path];
+
+$path = "inv/" . $path;
 
 switch ($_SERVER['REQUEST_METHOD']) {
 case 'GET':
