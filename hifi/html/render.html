@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>render</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+        <style type="text/css" media="screen">
+        div {
+            width: 100%;
+        }
+
+        body {
+            margin: 0px;
+            overflow: hidden;
+        }
+
+        #header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 60px;
+            background-color: red;
+        }
+
+        #footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 60px;
+            background-color: blue;
+        }
+
+        #inventory {
+            position: absolute;
+            top: 60px;
+            bottom: 60px;
+            left: 0;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background-color: green;
+        }
+
+        .folder-content {
+            padding-left: 20px;
+        }
+
+        .folder{
+            cursor: pointer;
+        }
+        .file{
+            cursor: default;
+        }
+
+        div>span {
+            float: left;
+            clear: left;
+        }
+        </style>
+        <script type="text/javascript" charset="utf-8">
+        var inventory = JSON.parse('{"things":{"bob":{"file.txt":"inode/x-empty"},"a":"inode/x-empty","b":"inode/x-empty","bob.json":"text/plain","c":"inode/x-empty"},"put inventory here":"inode/x-empty","rawr.txt":"text/plain","more":{"toppings":null,"cake":"inode/x-empty"}}');
+
+        function createFindSpan(parent, path, name, type) {
+            path = path.split("/").join("_");
+            var e = $("#" + path);
+            if (e.length < 1) {
+                e = $("<span>");
+                e.attr("id", path);
+                e.append($("<i>").addClass("fas fa-" + type));
+                e.addClass(type);
+                e.append(" " + name);
+                if (type == "folder") {
+                    e.on("click", function() {
+                        var f = $(this).next();
+                        if (f.hasClass("folder-content")) {
+                            f.slideToggle(100);
+                        }
+                    });
+                }
+                parent.append(e);
+            }
+            return e;
+        }
+
+        function createFindDiv(span, path) {
+            path = path.split("/").join("_") + "___folder";
+            var e = $("#" + path);
+            if (e.length < 1) {
+                e = $("<div>");
+                e.attr("id", path);
+                e.addClass("folder-content");
+                e.hide();
+                e.insertAfter(span);
+            }
+            return e;
+        }
+
+        function folderRender(parent, folder, path) {
+            var p = "";
+            var dirs = [];
+            var fils = [];
+            for (var i in folder) {
+                var o = folder[i];
+                if (typeof o == "string") {
+                    fils.push(i);
+                } else {
+                    dirs.push(i);
+                }
+            }
+
+            fils.sort();
+            dirs.sort();
+
+            dirs.push.apply(dirs,fils);
+            var items = dirs;
+
+            for (var j in items) {
+                var i = items[j];
+                p = path + "/" + i;
+                var o = folder[i];
+                if (typeof o == "string") {
+                    var e = createFindSpan(parent, p, i, "file");
+                } else {
+                    var e = createFindSpan(parent, p, i, "folder");
+                    var d = createFindDiv(e, p);
+                    //e.hide();
+                    folderRender(d, o, p);
+                }
+            }
+        }
+        $(document).ready(function() {
+            var inv = $("#inventory");
+            folderRender(inv, inventory, "");
+
+        });
+        </script>
+    </head>
+
+    <body>
+        <div id="header">
+        </div>
+        <div id="inventory">
+        </div>
+        <!--div id="inventory">
+            <span id=""><i class="fas fa-folder-open"></i> Folder 1</span>
+            <div class="folder-content">
+                <span><i class="fas fa-folder-open"></i> Sub Folder 1</span>
+                <div class="folder-content">
+                </div>
+                <span>Item 1</span>
+            </div>
+            <span><i class="fas fa-folder-open"></i> Folder 2</span>
+            <div class="folder-content">
+            </div>
+            <span>Item 1</span>
+        </div-->
+        <div id="footer">
+        </div>
+    </body>
+
+</html>

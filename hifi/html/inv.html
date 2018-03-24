@@ -5,10 +5,71 @@
         <title>Inventory</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="js/inv.js" type="text/javascript" charset="utf-8" async defer></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+        <style type="text/css" media="screen">
+        div {
+            width: 100%;
+        }
+
+        body {
+            margin: 0px;
+            overflow: hidden;
+        }
+
+        #header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 60px;
+            background-color: red;
+        }
+
+        #footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 60px;
+            background-color: blue;
+        }
+
+        #inventory {
+            position: absolute;
+            top: 60px;
+            bottom: 60px;
+            left: 0;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background-color: green;
+        }
+
+        .folder-content {
+            padding-left: 20px;
+        }
+
+        .folder {
+            cursor: pointer;
+        }
+
+        .file {
+            cursor: default;
+        }
+
+        div>span {
+            float: left;
+            clear: left;
+        }
+        </style>
     </head>
 
     <body>
-        <h1>RAWR</h1>
+        <div id="header">
+        </div>
+        <div id="inventory">
+        </div>
+        <div id="footer">
+        </div>
     </body>
 
 </html>
