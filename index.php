@@ -30,8 +30,6 @@ while (substr($path, strlen($path) - 1) == "/") {
 	$path = substr($path, 0, strlen($path) - 1);
 }
 
-echo "\n";
-
 $response = ["path" => $path];
 
 switch ($_SERVER['REQUEST_METHOD']) {
