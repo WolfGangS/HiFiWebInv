@@ -22,15 +22,7 @@ on  30/9/2017
 (function() {
 
     var isActive = false;
-
-    var html = Script.resolvePath("html/inv.html?" + Date.now());
-    var inventory = new OverlayWebWindow({
-        title: "Inventory",
-        source: html,
-        width: 400,
-        height: 800,
-        visible: false
-    });
+    var inventory = null;
 
     var tablet = Tablet.getTablet("com.highfidelity.interface.tablet.system");
     //print(JSON.stringify(Object.keys(tablet)));
@@ -49,6 +41,7 @@ on  30/9/2017
     function setWebState(on) {
         if (on === isActive) return;
         isActive = on;
+        setupWebInv();
         inventory.setVisible(isActive);
         button.editProperties({ isActive: isActive });
     }
@@ -62,12 +55,23 @@ on  30/9/2017
         inventory.close();
     });
 
-    inventory.webEventReceived.connect(function(msg) {
-        msg = JSON.parse(msg);
-    });
+    setupWebInv() {
+        if (inventory == null) {
+            var inventory = new OverlayWebWindow({
+                title: "Inventory",
+                source: Script.resolvePath("html/inv.html?" + Date.now()),
+                width: 400,
+                height: 800,
+                visible: false
+            });
+            inventory.webEventReceived.connect(function(msg) {
+                msg = JSON.parse(msg);
+            });
 
-    inventory.visibleChanged.connect(function() {
-        setWebState(inventory.isVisible());
-    });
+            inventory.visibleChanged.connect(function() {
+                setWebState(inventory.isVisible());
+            });
+        }
+    }
 
 })();
