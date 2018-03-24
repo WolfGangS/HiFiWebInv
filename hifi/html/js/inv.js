@@ -1,5 +1,5 @@
 function Api(endpoint) {
-    var that = {};
+    let that = {};
     that.endpoint = endpoint;
 
     that.get = function(path) {
@@ -16,61 +16,68 @@ function Api(endpoint) {
     return that;
 }
 
-var api = null;
+let api = null;
 
-var inventory = {};
+let inventory = {};
 
 function loadInventory(path) {
     api.get(path).success(function(data) {
         if (data.hasOwnProperty("path")) {
-            var path = data.path;
+            let path = data.path;
             if (data.hasOwnProperty("dir")) {
                 data = data.dir;
                 if (path.length > 0) {
-                    var i;
+                    let i;
                     path = path.split("/");
-                    var inv = inventory;
+                    let inv = inventory;
                     for (i = 0; i < path.length; i++) {
                         if (!inv.hasOwnProperty(path[i]) || inv[path[i]] == null) {
                             inv[path[i]] = {};
                         }
                         inv = inv[path[i]];
                     }
-                    for (var d in data.dirs) {
+                    for (let d in data.dirs) {
                         inv[d] = {};
                     }
-                    for (var f in data.files) {
+                    for (let f in data.files) {
                         inv[f] = data.files[f];
                     }
                 } else {
-                    var inv = {};
-                    for (var d in data.dirs) {
+                    let inv = {};
+                    for (let d in data.dirs) {
                         inv[d] = {};
                     }
-                    for (var f in data.files) {
+                    for (let f in data.files) {
                         inv[f] = data.files[f];
                     }
                     inventory = inv;
                 }
-                folderRender($("#inventory"),inventory,"");
+                folderRender($("#inventory"), inventory, "");
             }
         }
     });
 }
 
+function sha1(str) {
+    let buffer = new TextEncoder("utf-8").encode(str);
+    return crypto.subtle.digest("SHA-1", buffer).then(function(hash) {
+        return hex(hash);
+    });
+}
+
 function createFindSpan(parent, path, name, type) {
-    var p = path.split("/").join("_");
-    var e = $("#" + p);
+    let p = path.split("/").join("_");
+    let e = $("#" + p);
     if (e.length < 1) {
         e = $("<span>");
         e.attr("id", p);
-        e.data("path",path);
+        e.data("path", path);
         e.append($("<i>").addClass("fas fa-" + type));
         e.addClass(type);
         e.append(" " + name);
         if (type == "folder") {
             e.on("click", function() {
-                var f = $(this).next();
+                let f = $(this).next();
                 loadInventory($(this).data("path"));
                 if (f.hasClass("folder-content")) {
                     f.slideToggle(100);
@@ -83,11 +90,11 @@ function createFindSpan(parent, path, name, type) {
 }
 
 function createFindDiv(span, path) {
-    var p = path.split("/").join("_") + "___folder";
-    var e = $("#" + p);
+    let p = path.split("/").join("_") + "___folder";
+    let e = $("#" + p);
     if (e.length < 1) {
         e = $("<div>");
-        e.data("path",path);
+        e.data("path", path);
         e.attr("id", p);
         e.addClass("folder-content");
         e.hide();
@@ -97,11 +104,11 @@ function createFindDiv(span, path) {
 }
 
 function folderRender(parent, folder, path) {
-    var p = "";
-    var dirs = [];
-    var fils = [];
-    for (var i in folder) {
-        var o = folder[i];
+    let p = "";
+    let dirs = [];
+    let fils = [];
+    for (let i in folder) {
+        let o = folder[i];
         if (typeof o == "string") {
             fils.push(i);
         } else {
@@ -113,20 +120,22 @@ function folderRender(parent, folder, path) {
     dirs.sort();
 
     dirs.push.apply(dirs, fils);
-    var items = dirs;
+    let items = dirs;
 
-    for (var j in items) {
-        var i = items[j];
+    for (let j in items) {
+        let i = items[j];
         p = path + "/" + i;
-        var o = folder[i];
-        if (typeof o == "string") {
-            var e = createFindSpan(parent, p, i, "file");
-        } else {
-            var e = createFindSpan(parent, p, i, "folder");
-            var d = createFindDiv(e, p);
-            //e.hide();
-            folderRender(d, o, p);
-        }
+        let o = folder[i];
+        sha1(p).then(function(hash) {
+            if (typeof o == "string") {
+                let e = createFindSpan(parent, p, hash i, "file");
+            } else {
+                let e = createFindSpan(parent, p, hash, i, "folder");
+                let d = createFindDiv(e, p);
+                folderRender(d, o, p);
+            }
+        });
+
     }
 }
 
