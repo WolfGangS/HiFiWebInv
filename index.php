@@ -135,6 +135,11 @@ case 'GET':
 		die();
 	}
 	break;
+default:
+	$response["files"] = $_FILES;
+	$response["request"] = $_REQUEST;
+	$response["server"] = $_SERVER;
+	break;
 }
 header('Content-Type: application/json');
 echo json_encode($response, JSON_PRETTY_PRINT);
