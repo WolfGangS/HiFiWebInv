@@ -129,7 +129,7 @@ case 'GET':
 			header('Content-Length: ' . filesize($path));
 		}
 		if (endsWith($path, ".json")) {
-    		header('Content-Type: application/json'
+    		header('Content-Type: application/json');
 		}
 		readfile($path);
 		die();
