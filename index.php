@@ -163,14 +163,23 @@ case "POST":
 			$np = "inv/" . $_np;
 			if (file_exists($op)) {
 				if (!file_exists($np)) {
-					if (rename($op, $np)) {
-						$response["status"] = "success";
-						$response["data"] = [
-							"path" => $_np,
-							"name" => basename($np),
-						];
+					if (!is_dir(dirname($np))) {
+						$dir = mkdir(dirname($np), 0755, true);
 					} else {
-						$response["message"] = "Rename failed";
+						$dir = true;
+					}
+					if ($dir) {
+						if (rename($op, $np)) {
+							$response["status"] = "success";
+							$response["data"] = [
+								"path" => $_np,
+								"name" => basename($np),
+							];
+						} else {
+							$response["message"] = "Rename failed";
+						}
+					} else {
+						$response["message"] = "Unable to make/find directory";
 					}
 				} else {
 					$response["message"] = "File with that name already exists";
@@ -192,14 +201,23 @@ case "POST":
 			$np = "inv/" . $_np;
 			if (file_exists($op)) {
 				if (!file_exists($np)) {
-					if (rename($op, $np)) {
-						$response["status"] = "success";
-						$response["data"] = [
-							"path" => $_np,
-							"name" => basename($np),
-						];
+					if (!is_dir(dirname($np))) {
+						$dir = mkdir(dirname($np), 0755, true);
 					} else {
-						$response["message"] = "Rename failed";
+						$dir = true;
+					}
+					if ($dir) {
+						if (rename($op, $np)) {
+							$response["status"] = "success";
+							$response["data"] = [
+								"path" => $_np,
+								"name" => basename($np),
+							];
+						} else {
+							$response["message"] = "Rename failed";
+						}
+					} else {
+						$response["message"] = "Unable to make/find directory";
 					}
 				} else {
 					$response["message"] = "File with that name already exists";
