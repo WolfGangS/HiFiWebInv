@@ -70,9 +70,9 @@ $(document).ready(function() {
                 data: function(node) {
                     console.log("data", node);
                     return { 'path': node.id };
-                }
+                },
             },
-            check_callback: true
+            check_callback: true,
         },
         types: {
             "folder": { icon: "glyphicon glyphicon-folder-open" },
@@ -83,8 +83,8 @@ $(document).ready(function() {
             "jpg": { icon: "glyphicon glyphicon-picture", max_children: 0 },
             "jpeg": { icon: "glyphicon glyphicon-picture", max_children: 0 },
             "bmp": { icon: "glyphicon glyphicon-picture", max_children: 0 },
-        }
+        },
         search: { show_only_matches: true },
-        plugins: ["contextmenu", "sort", "type", "unique", "wholerow"]
+        plugins: ["contextmenu", "sort", "type", "unique", "wholerow"],
     });
 });
