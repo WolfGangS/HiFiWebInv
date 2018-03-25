@@ -27,6 +27,14 @@ function endsWith($haystack, $needle) {
 		(substr($haystack, -$length) === $needle);
 }
 
+function base64url_encode($data) {
+  return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+}
+
+function base64url_decode($data) {
+  return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
+} 
+
 $url = parse_url(curPageURL());
 
 if (empty($url["path"])) {
@@ -84,7 +92,7 @@ case 'GET':
 				continue;
 			}
 			$_r = $record;
-			$_r["id"] = base64_encode($path.$item);
+			$_r["id"] = base64url_encode($path.$item);
 			$_r["text"] = $item;
 			$_r["li_attr"]["data-path"] = $path . $item;
 			$_r["a_attr"]["data-path"] = $path . $item;
