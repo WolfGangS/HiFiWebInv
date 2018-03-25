@@ -117,6 +117,7 @@ case 'GET':
 			$_r["id"] = base64url_encode($path . $item);
 			$_r["text"] = $item;
 			$_r["data"]["path"] = $rp . $item;
+			$_r["data"]["name"] = $item;
 			if (is_file($path . $item)) {
 				$_r["type"] = "file";
 				$type = finfo_file($finfo, $path . $item);

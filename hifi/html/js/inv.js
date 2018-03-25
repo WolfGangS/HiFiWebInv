@@ -89,7 +89,7 @@ $(document).ready(function() {
         core: {
             data: {
                 url: function(node) {
-                    var p = "";
+                    let p = "";
                     if (node.hasOwnProperty("data")) {
                         if (node.data.hasOwnProperty("path")) {
                             p = node.data.path;
@@ -104,7 +104,9 @@ $(document).ready(function() {
             check_callback: function(op, node, parent, data, extra) {
                 switch (op) {
                     case "rename_node":
-                        return api.rename(node.data.path, data);
+                        let oldpath = node.data.path;
+                        let newpath = oldpath.substring(0,oldpath.length - node.data.name.length) + data;
+                        return api.rename(oldpath, newpath);
                         break;
                 }
             },
