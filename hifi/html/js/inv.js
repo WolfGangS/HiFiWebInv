@@ -142,6 +142,7 @@ $(document).ready(function() {
                 } else if (op == "delete_node") {
                     return api.delete(node, node.data.path);
                 } else if (op == "move_node") {
+                    /*
                     if(parent.id != "#" && parent.type != "folder" && parent.type != "trash"){
                         parent = inventree.get_node(parent.parent);
                         node.parent = parent.id;
@@ -152,7 +153,7 @@ $(document).ready(function() {
                     if (s) {
                         window.setTimeout(function() { if (parent.id == "#") { inventree.refresh(); } else { inventree.refresh_node(parent); } }, 100);
                     }
-                    return s;
+                    return s;*/return true;
                 } else {
                     console.log(op, node.data.path, data);
                 }
