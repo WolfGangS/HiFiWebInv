@@ -76,8 +76,8 @@ $(document).ready(function() {
                     return { 'path': node.id };
                 },
             },
-            check_callback: function(op,node,parent,position,more){
-                console.log(op,node);
+            check_callback: function(){
+                console.log(arguments);
             },
         },
         types: {
