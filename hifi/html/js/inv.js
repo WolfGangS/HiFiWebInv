@@ -56,6 +56,9 @@ function Api(endpoint) {
     }
     that.delete = function(node, path) {
         let data = that.post("delete", { path: path });
+        if(data.success){
+            window.setTimeout(function(){$("#inventory").jstree(true).refresh_node("aW52Ly90cmFzaA");},500);
+        }
         return data.success;
     }
     return that;
