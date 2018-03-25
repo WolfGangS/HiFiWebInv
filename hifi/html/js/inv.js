@@ -46,6 +46,7 @@ function Api(endpoint) {
         let response = that.post("rename", { oldpath: oldpath, newpath: newpath });
         if (response.success) {
             node.data = response.data;
+            node.id = response.id;
             return true;
         } else {
             return false;

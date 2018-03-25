@@ -171,6 +171,7 @@ case "POST":
 					if ($dir) {
 						if (rename($op, $np)) {
 							$response["status"] = "success";
+							$response["id"] = base64url_encode($_np);
 							$response["data"] = [
 								"path" => $_np,
 								"name" => basename($np),
@@ -209,6 +210,7 @@ case "POST":
 					if ($dir) {
 						if (rename($op, $np)) {
 							$response["status"] = "success";
+							$response["id"] = base64url_encode($_np);
 							$response["data"] = [
 								"path" => $_np,
 								"name" => basename($np),
