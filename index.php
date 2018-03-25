@@ -70,7 +70,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
 case 'GET':
 	if (is_dir($path)) {
 		$path .= "/";
-		$rp .= "/";
+		if(strlen($rp) > 0){
+			$rp .= "/";	
+		}
 		$_contents = scandir($path);
 		$contents = [];
 		$finfo = finfo_open(FILEINFO_MIME_TYPE);
