@@ -65,16 +65,38 @@ case 'GET':
 		$_contents = scandir($path);
 		$contents = ["files" => [], "dirs" => []];
 		$finfo = finfo_open(FILEINFO_MIME_TYPE);
+		$record = [
+			"id" => null,
+			"text" => "n/a",
+			//"icon"	=> "icon",
+			"state" => [
+				"opened" => false,  // is the node open
+    			"disabled" => false,  // is the node disabled
+    			"selected" => fasle,
+			],
+			//"children"	=> [],
+			"li_attr" => [],
+			"a_attr" => [],
+		];
+
 		foreach ($_contents as $item) {
 			if (substr($item, 0, 1) == ".") {
 				continue;
 			}
+			$_r = $record;
+			$_r["id"] = base64_encode($path.$item);
+			$_r["text"] = $item;
+			$_r["li_attr"]["data-path"] = $path . $item;
+			$_r["a_attr"]["data-path"] = $path . $item;
 
 			if (is_file($path . $item)) {
-				$contents["files"][$item] = finfo_file($finfo, $path . $item);
+				$type = finfo_file($finfo, $path . $item);
+				$_r["li_attr"]["data-type"] = $type;
+				$_r["a_attr"]["data-type"] = $type;
 			} else {
-				$contents["dirs"][$item] = count(scandir($path . $item)) - 2;
+				$_r["children"] = [];
 			}
+			$contents[] = $_r;
 		}
 		finfo_close($finfo);
 		$response["dir"] = $contents;
