@@ -161,10 +161,14 @@ case "POST":
 			$op = "inv/" . pathclean($_POST["oldpath"], "/");
 			$np = "inv/" . pathclean($_POST["newpath"], "/");
 			if (file_exists($op)) {
-				if (rename($op, $np)) {
-					$response["status"] = "success";
+				if (!file_exists($np)) {
+					if (rename($op, $np)) {
+						$response["status"] = "success";
+					} else {
+						$response["message"] = "Rename failed";
+					}
 				} else {
-					$response["message"] = "Rename failed";
+					$response["message"] = "File with that name already exists";
 				}
 			} else {
 				$response["message"] = "File does not exist";
@@ -175,6 +179,27 @@ case "POST":
 		break;
 	case 'copy':
 		$response["post"] = $_POST;
+		break;
+	case 'delete':
+		if (!empty($_POST["path"])) {
+			$op = "inv/" . pathclean($_POST["path"], "/");
+			$np = "inv/trash/" . basename($path);
+			if (file_exists($op)) {
+				if (!file_exists($np)) {
+					if (rename($op, $np)) {
+						$response["status"] = "success";
+					} else {
+						$response["message"] = "Rename failed";
+					}
+				} else {
+					$response["message"] = "File with that name already exists";
+				}
+			} else {
+				$response["message"] = "File does not exist";
+			}
+		} else {
+			$response["message"] = "Missing parameters";
+		}
 		break;
 	}
 	break;

@@ -1,113 +1,134 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Inventory</title>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jstree.min.js"></script>
-    <script src="js/jquery.ui.widget.js"></script>
-    <script src="js/jquery.fileupload.js"></script>
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/jstree.style.min.css" />
-    <script src="js/inv.js" type="text/javascript" charset="utf-8" async defer></script>
-    <style type="text/css" media="screen">
-    div {
-        width: 100%;
-    }
+    <head>
+        <title>Inventory</title>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/jstree.min.js"></script>
+        <script src="js/jquery.ui.widget.js"></script>
+        <script src="js/jquery.fileupload.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/jstree.style.min.css" />
+        <script src="js/inv.js" type="text/javascript" charset="utf-8" async defer></script>
+        <style type="text/css" media="screen">
+        div {
+            width: 100%;
+        }
 
-    body {
-        margin: 0px;
-        overflow: hidden;
-    }
+        body {
+            margin: 0px;
+            overflow: hidden;
+        }
 
-    #header {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 60px;
-        background-color: red;
-    }
+        #header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 60px;
+            background-color: red;
+        }
 
-    #footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        height: 60px;
-        background-color: blue;
-    }
+        #footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 60px;
+            background-color: blue;
+        }
 
-    #inventory {
-        position: absolute;
-        top: 60px;
-        bottom: 60px;
-        left: 0;
-        width: 100%;
-        overflow-y: auto;
-        overflow-x: hidden;
-        background-color: green;
-    }
+        #inventory {
+            position: absolute;
+            top: 60px;
+            bottom: 60px;
+            left: 0;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background-color: green;
+        }
 
-    .folder-content {
-        padding-left: 20px;
-    }
+        .folder-content {
+            padding-left: 20px;
+        }
 
-    .folder {
-        cursor: pointer;
-    }
+        .folder {
+            cursor: pointer;
+        }
 
-    .file {
-        cursor: default;
-    }
+        .file {
+            cursor: default;
+        }
 
-    div>span {
-        float: left;
-        clear: left;
-    }
-    </style>
-</head>
+        div>span {
+            float: left;
+            clear: left;
+        }
+        </style>
+    </head>
 
-<body>
-    <div id="header">
-    </div>
-    <div id="inventory">
-    </div>
-    <div id="footer">
-        <input id="file-upload" type="file" name="fileupload" multiple>
-        <br>
-        <!-- The global progress bar -->
-        <div id="progress" class="progress">
-            <div class="progress-bar progress-bar-success"></div>
+    <body>
+        <div id="header">
         </div>
-        <!-- The container for the uploaded files -->
-        <div id="files" class="files"></div>
-    </div>
-    <script>
-    $(function() {
-        'use strict';
-        $('#file-upload').fileupload({
-                url: '/upload',
-                dataType: 'json',
-                done: function(e, data) {
-                    $.each(data.result.files, function(index, file) {
-                        $('<p/>').text(file.name).appendTo('#files');
-                    });
-                },
-                progressall: function(e, data) {
-                    var progress = parseInt(data.loaded / data.total * 100, 10);
-                    $('#progress .progress-bar').css(
-                        'width',
-                        progress + '%'
-                    );
-                    if(data.loaded >= data.total){
-                        window.setTimeout(function(){
-                        $("#inventory").jstree(true).refresh_node("aW52Ly91cGxvYWRz");},500);
+        <div id="inventory">
+        </div>
+        <div id="footer">
+            <input id="file-upload" type="file" name="fileupload" multiple>
+            <br>
+            <!-- The global progress bar -->
+            <div id="progress" class="progress">
+                <div class="progress-bar progress-bar-success"></div>
+            </div>
+            <!-- The container for the uploaded files -->
+            <div id="files" class="files"></div>
+        </div>
+        <div class="modal fade" id="alert-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>One fine body&hellip;</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <script>
+        $(function() {
+            'use strict';
+            $('#file-upload').fileupload({
+                    url: '/upload',
+                    dataType: 'json',
+                    done: function(e, data) {
+                        $.each(data.result.files, function(index, file) {
+                            $('<p/>').text(file.name).appendTo('#files');
+                        });
+                    },
+                    progressall: function(e, data) {
+                        var progress = parseInt(data.loaded / data.total * 100, 10);
+                        $('#progress .progress-bar').css(
+                            'width',
+                            progress + '%'
+                        );
+                        if (data.loaded >= data.total) {
+                            window.setTimeout(function() {
+                                $("#inventory").jstree(true).refresh_node("aW52Ly91cGxvYWRz");
+                            }, 500);
+                        }
                     }
-                }
-            }).prop('disabled', !$.support.fileInput)
-            .parent().addClass($.support.fileInput ? undefined : 'disabled');
-    });
-    </script>
-</body>
+                }).prop('disabled', !$.support.fileInput)
+                .parent().addClass($.support.fileInput ? undefined : 'disabled');
+        });
+        </script>
+    </body>
 
 </html>

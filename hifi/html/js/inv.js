@@ -24,10 +24,10 @@ function Api(endpoint) {
             }
         });
     }
-    that.move = function(node, oldpath, newpath) {
+    that.rename = function(node, oldpath, newpath) {
         let success = false;
         $.ajax({
-            url: "/move",
+            url: "/rename",
             method: "POST",
             async: false,
             data: { oldpath: oldpath, newpath: newpath },
@@ -38,8 +38,27 @@ function Api(endpoint) {
         });
         return success;
     }
-    that.rename = function(node, path, name) {
-        return that.move(node, path, name);
+    that.move = function(node, path, name) {
+        return that.rename(node, path, name);
+    }
+    that.delete = function(node,path){
+        let success = false;
+        let msg = "";
+        $.ajax({
+            url: "/rename",
+            method: "POST",
+            async: false,
+            data: { path: path },
+            success: function(response) {
+                console.log(response);
+                msg = response.message;
+                success =  response.status == "success";
+            }
+        });
+        if(!success){
+            $("#alert-modal").modal('show');
+        }
+        return success;
     }
     return that;
 }
@@ -115,6 +134,9 @@ $(document).ready(function() {
                             newpath = newpath.substring(0, newpath.length - node.data.name.length) + data;
                         }
                         return api.rename(node, oldpath, newpath);
+                        break;
+                    case "delete_node":
+                        return api.delete(node,node.data.path);
                         break;
                     default:
                         console.log(op, node.data.path, data);
