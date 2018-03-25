@@ -113,6 +113,9 @@ $(document).ready(function() {
                         }
                         return api.rename(oldpath, newpath);
                         break;
+                    default:
+                        console.log(op,node.data.path,data);
+                        break;
                 }
             },
         },
