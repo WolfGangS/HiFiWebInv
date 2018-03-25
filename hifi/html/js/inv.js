@@ -65,7 +65,13 @@ $(document).ready(function() {
             data: {
                 url: function(node) {
                     console.log("url", node);
-                    return "/" + node.id;
+                    var p = "";
+                    if(node.hasOwnProperty("a_attr")){
+                        if(node.a_attr.hasOwnProperty("data-path")){
+                            p = node.a_attr["data-path"];
+                        }
+                    }
+                    return "/" + p;
                 },
                 data: function(node) {
                     console.log("data", node);
