@@ -13,30 +13,30 @@ function Api(endpoint) {
         that.after = cb;
         return that;
     }
-    that.copy = function(oldpath,newpath){
+    that.copy = function(oldpath, newpath) {
         $.ajax({
-            url : "/copy",
+            url: "/copy",
             method: "POST",
-            async : false,
-            data: {oldpath:oldpath,newpath:newpath},
+            async: false,
+            data: { oldpath: oldpath, newpath: newpath },
             success: function(response) {
                 console.log(response);
             }
         });
     }
-    that.move = function(oldpath,newpath){
+    that.move = function(oldpath, newpath) {
         $.ajax({
-            url : "/move",
+            url: "/move",
             method: "POST",
-            async : false,
-            data: {oldpath:oldpath,newpath:newpath},
+            async: false,
+            data: { oldpath: oldpath, newpath: newpath },
             success: function(response) {
                 console.log(response);
             }
         });
     }
     that.rename = function(path, name) {
-        return that.move(path,name);
+        return that.move(path, name);
     }
     return that;
 }
@@ -90,8 +90,10 @@ $(document).ready(function() {
             data: {
                 url: function(node) {
                     var p = "";
-                    if (node.data.hasOwnProperty("path")) {
-                        p = node.data["path"];
+                    if (node.hasOwnProperty("data")) {
+                        if (node.data.hasOwnProperty("path")) {
+                            p = node.data.path;
+                        }
                     }
                     return "/" + p;
                 },
@@ -100,9 +102,9 @@ $(document).ready(function() {
                 },
             },
             check_callback: function(op, node, parent, data, extra) {
-                switch(op){
+                switch (op) {
                     case "rename_node":
-                        return api.rename(node.data.path,data);
+                        return api.rename(node.data.path, data);
                         break;
                 }
             },
