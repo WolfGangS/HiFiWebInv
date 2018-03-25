@@ -118,7 +118,7 @@ case 'GET':
 			$_r["text"] = $item;
 			$_r["li_attr"]["data-path"] = $rp . $item;
 			$_r["a_attr"]["data-path"] = $rp . $item;
-
+			$_r["data"]["path"] = $rp . $item;
 			if (is_file($path . $item)) {
 				$_r["type"] = "file";
 				$type = finfo_file($finfo, $path . $item);

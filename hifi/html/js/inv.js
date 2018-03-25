@@ -102,6 +102,7 @@ $(document).ready(function() {
                 },
             },
             check_callback: function(op, node, parent, data, extra) {
+                console.log(node);
                 switch(op){
                     case "rename_node":
                         return api.rename(node.text,data);
