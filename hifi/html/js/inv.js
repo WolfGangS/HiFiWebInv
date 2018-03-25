@@ -44,13 +44,7 @@ function Api(endpoint) {
     }
     that.rename = function(node, oldpath, newpath) {
         let response = that.post("rename", { oldpath: oldpath, newpath: newpath });
-        if (response.success) {
-            node.data = response.data;
-            node.id = response.id;
-            return true;
-        } else {
-            return false;
-        }
+        return response.success;
     }
     that.move = function(node, path, name) {
         return that.rename(node, path, name);
@@ -107,9 +101,12 @@ function loadInventory(path) {
     });
 }
 
+let inventree = null;
+let parrr = null;
+
 $(document).ready(function() {
     api = new Api(window.location.href.split("/hifi/html/inv.html")[0]);
-    $("#inventory").jstree({
+    inventree = $("#inventory").jstree({
         core: {
             data: {
                 url: function(node) {
@@ -138,7 +135,12 @@ $(document).ready(function() {
                         } else {
                             newpath = newpath.substring(0, newpath.length - node.data.name.length) + data;
                         }
-                        return api.rename(node, oldpath, newpath);
+                        let s = api.rename(node, oldpath, newpath);
+                        parrr = parent;
+                        if(s){
+                            inventree.refresh_node(parent);
+                        }
+                        return s;
                         break;
                     case "delete_node":
                         return api.delete(node, node.data.path);
