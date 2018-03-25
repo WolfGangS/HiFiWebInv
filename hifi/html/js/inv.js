@@ -38,7 +38,7 @@ function Api(endpoint) {
         //return false;
     }
     that.rename = function(node, path, name) {
-        return that.move(path, name);
+        return that.move(node, path, name);
     }
     return that;
 }
@@ -108,15 +108,15 @@ $(document).ready(function() {
                     case "rename_node":
                         let oldpath = node.data.path;
                         let newpath = oldpath;
-                        if(oldpath.length == node.data.name){
+                        if (oldpath.length == node.data.name) {
                             newpath = data;
                         } else {
-                            newpath = newpath.substring(0,newpath.length - node.data.name.length) + data;
+                            newpath = newpath.substring(0, newpath.length - node.data.name.length) + data;
                         }
-                        return api.rename(oldpath, newpath);
+                        return api.rename(node, oldpath, newpath);
                         break;
                     default:
-                        console.log(op,node.data.path,data);
+                        console.log(op, node.data.path, data);
                         break;
                 }
             },
