@@ -92,8 +92,12 @@ $(document).ready(function() {
         sort: function(a,b){
             a = this.get_node(a);
             b = this.get_node(b);
-            console.log(a,b);
-            return -1;
+            if(a.type !== b.type){
+                if(a.type === "folder" || b.type == "folder"){
+                    return a.type == "folder" ? 1 : -1;
+                }
+            }
+            return a.text > b.text ? 1 : -1;
         },
         plugins: ["contextmenu", "sort", "types", "unique", "wholerow"],
     });
