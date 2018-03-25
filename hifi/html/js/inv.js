@@ -106,7 +106,7 @@ let parrr = null;
 
 $(document).ready(function() {
     api = new Api(window.location.href.split("/hifi/html/inv.html")[0]);
-    inventree = $("#inventory").jstree({
+    $("#inventory").jstree({
         core: {
             data: {
                 url: function(node) {
@@ -140,7 +140,7 @@ $(document).ready(function() {
                         if(s){
                             //inventree.refresh_node(parent);
                         }
-                        return s;
+                        return false;//s;
                         break;
                     case "delete_node":
                         return api.delete(node, node.data.path);
@@ -178,4 +178,5 @@ $(document).ready(function() {
         },
         plugins: ["contextmenu", "sort", "types", "unique", "wholerow"],
     });
+    inventree = $("#inventory").jstree(true);
 });
