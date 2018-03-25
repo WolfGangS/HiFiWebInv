@@ -104,7 +104,7 @@ case 'GET':
 				$_r["a_attr"]["data-type"] = $type;
 			} else {
 				$_r["type"] = "folder";
-				$_r["children"] = [];
+				$_r["children"] = ["a","b"];
 			}
 			$contents[] = $_r;
 		}
