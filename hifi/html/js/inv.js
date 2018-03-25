@@ -143,6 +143,9 @@ $(document).ready(function() {
                 } else if (op == "delete_node") {
                     return api.delete(node, node.data.path);
                 } else if (op == "move_node") {
+                    if(parent.id != "#" && parent.type != "folder" && parent.type != "trash"){
+                        parent = parent.parent;
+                    }
                     let oldpath = node.data.path;
                     let newpath = (parent.id != "#" ? parent.data.path + "/" : "") + node.data.name;
                     console.log(op, oldpath, newpath);
