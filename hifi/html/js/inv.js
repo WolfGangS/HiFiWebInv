@@ -135,7 +135,6 @@ $(document).ready(function() {
                         newpath = newpath.substring(0, newpath.length - node.data.name.length) + data;
                     }
                     let s = api.rename(node, oldpath, newpath);
-                    parrr = parent;
                     if (s) {
                         window.setTimeout(function() { if (parent.id == "#") { inventree.refresh(); } else { inventree.refresh_node(parent); } }, 100);
                     }
@@ -145,11 +144,15 @@ $(document).ready(function() {
                 } else if (op == "move_node") {
                     if(parent.id != "#" && parent.type != "folder" && parent.type != "trash"){
                         parent = parent.parent;
+                        node.parent = parent;
                     }
-                    console.log(node.parent,parent);
                     let oldpath = node.data.path;
                     let newpath = (parent != "#" ? parent.data.path + "/" : "") + node.data.name;
-                    return api.move(node,oldpath,newpath);
+                    let s = api.move(node, oldpath, newpath);
+                    if (s) {
+                        window.setTimeout(function() { if (parent.id == "#") { inventree.refresh(); } else { inventree.refresh_node(parent); } }, 100);
+                    }
+                    return s;
                 } else {
                     console.log(op, node.data.path, data);
                 }
