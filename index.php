@@ -116,14 +116,11 @@ case 'GET':
 			$_r = $record;
 			$_r["id"] = base64url_encode($path . $item);
 			$_r["text"] = $item;
-			$_r["li_attr"]["data-path"] = $rp . $item;
-			$_r["a_attr"]["data-path"] = $rp . $item;
 			$_r["data"]["path"] = $rp . $item;
 			if (is_file($path . $item)) {
 				$_r["type"] = "file";
 				$type = finfo_file($finfo, $path . $item);
-				$_r["li_attr"]["data-type"] = $type;
-				$_r["a_attr"]["data-type"] = $type;
+				$_r["data"]["type"] = $type;
 				$_r["children"] = false;
 			} else {
 				$_r["type"] = "folder";

@@ -90,10 +90,8 @@ $(document).ready(function() {
             data: {
                 url: function(node) {
                     var p = "";
-                    if (node.hasOwnProperty("a_attr")) {
-                        if (node.a_attr.hasOwnProperty("data-path")) {
-                            p = node.a_attr["data-path"];
-                        }
+                    if (node.data.hasOwnProperty("path")) {
+                        p = node.data["path"];
                     }
                     return "/" + p;
                 },
@@ -102,10 +100,9 @@ $(document).ready(function() {
                 },
             },
             check_callback: function(op, node, parent, data, extra) {
-                console.log(node);
                 switch(op){
                     case "rename_node":
-                        return api.rename(node.text,data);
+                        return api.rename(node.data.path,data);
                         break;
                 }
             },
