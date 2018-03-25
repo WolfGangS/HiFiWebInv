@@ -64,7 +64,6 @@ $(document).ready(function() {
         core: {
             data: {
                 url: function(node) {
-                    console.log("url", node);
                     var p = "";
                     if(node.hasOwnProperty("a_attr")){
                         if(node.a_attr.hasOwnProperty("data-path")){
@@ -74,13 +73,8 @@ $(document).ready(function() {
                     return "/" + p;
                 },
                 data: function(node) {
-                    console.log("data", node);
                     return { 'path': node.id };
                 },
-                /*function(obj,cb){
-                    console.log(obj,cb);
-                    cb.call(this,["a","b","c"]);
-                },*/
             },
             check_callback: true,
         },
@@ -95,6 +89,6 @@ $(document).ready(function() {
             "bmp": { icon: "glyphicon glyphicon-picture", max_children: 0 },
         },
         search: { show_only_matches: true },
-        plugins: ["contextmenu", "sort", "type", "unique", "wholerow"],
+        plugins: ["contextmenu", "sort", "types", "unique", "wholerow"],
     });
 });
