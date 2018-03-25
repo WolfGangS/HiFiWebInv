@@ -62,7 +62,7 @@ $(document).ready(function() {
     api = new Api(window.location.href.split("/hifi/html/inv.html")[0]);
     $("#inventory").jstree({
         core: {
-            data: {
+            data: /*{
                 url: function(node) {
                     console.log("url", node);
                     return "/" + node.id;
@@ -70,7 +70,10 @@ $(document).ready(function() {
                 data: function(node) {
                     console.log("data", node);
                     return { 'path': node.id };
-                },
+                },*/
+                function(obj,cb){
+                    console.log(obj,cb);
+                }
             },
             check_callback: true,
         },
