@@ -105,7 +105,12 @@ $(document).ready(function() {
                 switch (op) {
                     case "rename_node":
                         let oldpath = node.data.path;
-                        let newpath = oldpath.substring(0,oldpath.length - node.data.name.length) + data;
+                        let newpath = oldpath;
+                        if(oldpath.length == node.data.name){
+                            newpath = data;
+                        } else {
+                            newpath = newpath.substring(0,newpath.length - node.data.name.length) + data;
+                        }
                         return api.rename(oldpath, newpath);
                         break;
                 }
