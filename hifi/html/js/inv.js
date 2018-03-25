@@ -65,8 +65,8 @@ $(document).ready(function() {
             data: {
                 url: function(node) {
                     var p = "";
-                    if(node.hasOwnProperty("a_attr")){
-                        if(node.a_attr.hasOwnProperty("data-path")){
+                    if (node.hasOwnProperty("a_attr")) {
+                        if (node.a_attr.hasOwnProperty("data-path")) {
                             p = node.a_attr["data-path"];
                         }
                     }
@@ -87,33 +87,33 @@ $(document).ready(function() {
             "jpg": { icon: "glyphicon glyphicon-picture", max_children: 0 },
             "jpeg": { icon: "glyphicon glyphicon-picture", max_children: 0 },
             "bmp": { icon: "glyphicon glyphicon-picture", max_children: 0 },
-            "trash" { icon: "glyphicon glyphicon-trash"}
+            "trash": { icon: "glyphicon glyphicon-trash" }
         },
         search: { show_only_matches: true },
-        sort: function(a,b){
+        sort: function(a, b) {
             a = this.get_node(a);
             b = this.get_node(b);
-            if(a.type !== b.type){
-                if(a.type === "folder" || b.type == "folder"){
+            if (a.type !== b.type) {
+                if (a.type === "folder" || b.type == "folder") {
                     return a.type == "folder" ? -1 : 1;
                 }
             }
             return a.text > b.text ? 1 : -1;
         },
         plugins: ["contextmenu", "sort", "types", "unique", "wholerow"],
-    }).on('paste.jstree',function(e,data){
-        console.log("PASTE",e,data);
-    }).on('changed.jstree',function(e,data){
-        console.log("CHANGED",e,data);
-    }).on('copy_node.jstree',function(e,data){
-        console.log("COPY_NODE",e,data);
-    }).on('move_node.jstree',function(e,data){
-        console.log("MOVE_NODE",e,data);
-    }).on('rename_node.jstree',function(e,data){
-        console.log("RENAME",e,data);
-    }).on('delete_node.jstree',function(e,data){
-        console.log("DELETE",e,data);
-    }).on('create_node.jstree',function(e,data){
-        console.log("CREATE",e,data);
+    }).on('paste.jstree', function(e, data) {
+        console.log("PASTE", e, data);
+    }).on('changed.jstree', function(e, data) {
+        console.log("CHANGED", e, data);
+    }).on('copy_node.jstree', function(e, data) {
+        console.log("COPY_NODE", e, data);
+    }).on('move_node.jstree', function(e, data) {
+        console.log("MOVE_NODE", e, data);
+    }).on('rename_node.jstree', function(e, data) {
+        console.log("RENAME", e, data);
+    }).on('delete_node.jstree', function(e, data) {
+        console.log("DELETE", e, data);
+    }).on('create_node.jstree', function(e, data) {
+        console.log("CREATE", e, data);
     });
 });
