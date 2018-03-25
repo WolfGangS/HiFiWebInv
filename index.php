@@ -39,6 +39,18 @@ function base64url_decode($data) {
 	return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
 }
 
+function pathclean($path) {
+	$path = trim($path, "/");
+	$_path = [];
+	$path = explode("/", $path);
+	foreach ($path as $p) {
+		if (!empty($path) && substr($path, 0, 1) != ".") {
+			$_path[] = $p;
+		}
+	}
+	return implode("/", $_path);
+}
+
 $url = parse_url(curPageURL());
 
 if (empty($url["path"])) {
@@ -49,37 +61,11 @@ if (empty($url["path"])) {
 
 //$file = count($path) > 1 ? $path[1] : null;
 
-$path = $url["path"];
+$path = pathclean($url["path"]);
 
-while (substr($path, strlen($path) - 1) == "/") {
-	if (strlen($path) < 2) {
-		$path = "";
-	} else {
-		$path = substr($path, 0, strlen($path) - 1);
-	}
-}
-
-while (substr($path, 0, 1) == "/") {
-	if (strlen($path) < 2) {
-		$path = "";
-	} else {
-		$path = substr($path, 1);
-	}
-}
-
-$path = explode('/', $path);
-
-$_path = [];
-
-foreach ($path as $p) {
-	if (substr($p, 0, 1) != "." && !empty($p)) {
-		$_path[] = $p;
-	}
-}
+$_path = explode('/', $path);
 
 $action = empty($_path[0]) ? "" : $_path[0];
-
-$path = implode("/", $_path);
 
 $response = [];
 $rp = $path;
@@ -169,8 +155,19 @@ case "POST":
 		}
 		break;
 	case 'move':
-		$response["post"] = $_POST;
-		$response["trim"] = trim("//asasd/asd////", "/");
+		if (!empty($_POST["oldpath"])) {
+			if (!empty($_POST["newpath"])) {
+				$op = "inv/" . pathclean($_POST["oldpath"], "/");
+				$np = "inv/" . pathclean($_POST["newpath"], "/");
+				if (file_exists($op)) {
+					if (rename($op, $np)) {
+						$response["status"] = "success";
+					} else {
+						$response["status"] = "failure";
+					}
+				}
+			}
+		}
 		break;
 	case 'copy':
 		$response["post"] = $_POST;
