@@ -146,11 +146,10 @@ $(document).ready(function() {
                     if(parent.id != "#" && parent.type != "folder" && parent.type != "trash"){
                         parent = parent.parent;
                     }
+                    console.log(node.parent,parent);
                     let oldpath = node.data.path;
-                    console.log(parent,parent.id);
                     let newpath = (parent != "#" ? parent.data.path + "/" : "") + node.data.name;
-                    console.log(op, oldpath, newpath);
-                    return true;
+                    return api.move(node,oldpath,newpath);
                 } else {
                     console.log(op, node.data.path, data);
                 }
