@@ -101,6 +101,7 @@
                     );
                     if(data.loaded >= data.total){
                         console.log("UPLOAD DONE");
+                        $("#inventory").jstree(true).refresh_node("aW52Ly91cGxvYWRz");
                     }
                 }
             }).prop('disabled', !$.support.fileInput)
