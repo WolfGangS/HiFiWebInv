@@ -63,7 +63,7 @@ foreach ($path as $p) {
 $path = implode("/", $_path);
 
 $response = [];
-
+$rp = $path;
 $path = "inv/" . $path;
 
 switch ($_SERVER['REQUEST_METHOD']) {
@@ -94,8 +94,8 @@ case 'GET':
 			$_r = $record;
 			$_r["id"] = base64url_encode($path.$item);
 			$_r["text"] = $item;
-			$_r["li_attr"]["data-path"] = $path . $item;
-			$_r["a_attr"]["data-path"] = $path . $item;
+			$_r["li_attr"]["data-path"] = $rp . $item;
+			$_r["a_attr"]["data-path"] = $rp . $item;
 
 			if (is_file($path . $item)) {
 				$_r["type"] = "file";
