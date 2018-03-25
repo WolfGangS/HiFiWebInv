@@ -94,7 +94,7 @@ $(document).ready(function() {
             b = this.get_node(b);
             if(a.type !== b.type){
                 if(a.type === "folder" || b.type == "folder"){
-                    return a.type == "folder" ? 1 : -1;
+                    return a.type == "folder" ? -1 : 1;
                 }
             }
             return a.text > b.text ? 1 : -1;
