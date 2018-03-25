@@ -140,6 +140,7 @@ case 'GET':
 	break;
 case "POST":
 	$response["action"] = $action;
+	$response["status"] = "failure";
 	switch ($action) {
 	case 'upload':
 		if (!empty($_FILES["fileupload"])) {
@@ -162,8 +163,6 @@ case "POST":
 				if (file_exists($op)) {
 					if (rename($op, $np)) {
 						$response["status"] = "success";
-					} else {
-						$response["status"] = "failure";
 					}
 				}
 			}
