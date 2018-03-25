@@ -142,6 +142,7 @@ $(document).ready(function() {
                 } else if (op == "delete_node") {
                     return api.delete(node, node.data.path);
                 } else if (op == "move_node") {
+                    console.log(arguments);
                     /*
                     if(parent.id != "#" && parent.type != "folder" && parent.type != "trash"){
                         parent = inventree.get_node(parent.parent);
