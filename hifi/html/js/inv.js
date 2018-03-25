@@ -36,6 +36,7 @@ function Api(endpoint) {
             }
         });
         if(data.status != "success"){
+            $("#alert-modal-text").text(data.message);
             $("#alert-modal").modal('show');
         }
         return data;
