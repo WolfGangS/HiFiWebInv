@@ -31,9 +31,11 @@ function Api(endpoint) {
             async: false,
             data: { oldpath: oldpath, newpath: newpath },
             success: function(response) {
+                console.log(response.action,response.success);
                 return response.status == "success";
             }
         });
+        return false;
     }
     that.rename = function(path, name) {
         return that.move(path, name);

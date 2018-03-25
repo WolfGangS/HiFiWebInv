@@ -141,6 +141,7 @@ case 'GET':
 case "POST":
 	$response["action"] = $action;
 	$response["status"] = "failure";
+	$response["post"] = $_POST;
 	switch ($action) {
 	case 'upload':
 		if (!empty($_FILES["fileupload"])) {
