@@ -13,6 +13,16 @@ function Api(endpoint) {
         that.after = cb;
         return that;
     }
+    that.rename = function(path, name) {
+        $.ajax({
+            url: "/rename",
+            async: false,
+            data: { path: path, name: name },
+            success: function(response) {
+                console.log(response);
+            }
+        });
+    }
     return that;
 }
 
@@ -76,8 +86,12 @@ $(document).ready(function() {
                     return { 'path': node.id };
                 },
             },
-            check_callback: function(){
-                console.log(arguments);
+            check_callback: function(op, node, parent, data, extra) {
+                switch(op){
+                    case "rename_node":
+                        return api.rename(node.text,data);
+                        break;
+                }
             },
         },
         types: {

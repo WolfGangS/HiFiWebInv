@@ -50,8 +50,21 @@ if (empty($url["path"])) {
 //$file = count($path) > 1 ? $path[1] : null;
 
 $path = $url["path"];
+
 while (substr($path, strlen($path) - 1) == "/") {
-	$path = substr($path, 0, strlen($path) - 1);
+	if (strlen($path) < 2) {
+		$path = "";
+	} else {
+		$path = substr($path, 0, strlen($path) - 1);
+	}
+}
+
+while (substr($path, 0, 1) == "/") {
+	if (strlen($path) < 2) {
+		$path = "";
+	} else {
+		$path = substr($path, 1);
+	}
 }
 
 $path = explode('/', $path);
@@ -63,6 +76,8 @@ foreach ($path as $p) {
 		$_path[] = $p;
 	}
 }
+
+$action = empty($_path[0]) ? "" : $_path[0];
 
 $path = implode("/", $_path);
 
@@ -139,20 +154,28 @@ case 'GET':
 		die();
 	}
 	break;
-default:
-	$response["files"] = $_FILES;
-	$response["request"] = $_REQUEST;
-	$response["server"] = $_SERVER;
-	if (!empty($_FILES["fileupload"])) {
-		$fu = $_FILES["fileupload"];
-		if (!empty($fu["name"])) {
-			if (!empty($fu["tmp_name"])) {
-				if (!file_exists('inv/uploads')) {
-					mkdir("inv/uploads", 0755, true);
+case "POST":
+	$response["action"] = $action;
+	switch ($action) {
+	case 'upload':
+		if (!empty($_FILES["fileupload"])) {
+			$fu = $_FILES["fileupload"];
+			if (!empty($fu["name"])) {
+				if (!empty($fu["tmp_name"])) {
+					if (!file_exists('inv/uploads')) {
+						mkdir("inv/uploads", 0755, true);
+					}
+					move_uploaded_file($fu["tmp_name"], "inv/uploads/" . $fu["name"]);
 				}
-				move_uploaded_file($fu["tmp_name"], "inv/uploads/" . $fu["name"]);
 			}
 		}
+		break;
+	case 'move':
+		$response["post"] = $_POST;
+		break;
+	case 'copy':
+		$response["post"] = $_POST;
+		break;
 	}
 	break;
 }

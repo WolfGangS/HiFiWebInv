@@ -86,7 +86,7 @@
     $(function() {
         'use strict';
         $('#file-upload').fileupload({
-                url: '/',
+                url: '/upload',
                 dataType: 'json',
                 done: function(e, data) {
                     $.each(data.result.files, function(index, file) {
