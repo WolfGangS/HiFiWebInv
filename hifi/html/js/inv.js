@@ -25,6 +25,7 @@ function Api(endpoint) {
         });
     }
     that.move = function(node, oldpath, newpath) {
+        let success = false;
         $.ajax({
             url: "/move",
             method: "POST",
@@ -32,10 +33,10 @@ function Api(endpoint) {
             data: { oldpath: oldpath, newpath: newpath },
             success: function(response) {
                 console.log(response);
-                return response.status == "success";
+                success =  response.status == "success";
             }
         });
-        //return false;
+        return success;
     }
     that.rename = function(node, path, name) {
         return that.move(node, path, name);
