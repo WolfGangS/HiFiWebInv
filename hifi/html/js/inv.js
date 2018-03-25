@@ -74,7 +74,7 @@ $(document).ready(function() {
                 function(obj,cb){
                     console.log(obj,cb);
                 }
-            },
+            //},
             check_callback: true,
         },
         types: {
