@@ -110,7 +110,7 @@ case 'GET':
 				$_r["data"]["type"] = $type;
 				$_r["children"] = false;
 			} else {
-				$_r["type"] = "folder";
+				$_r["type"] = strtolower($item) == "trash" ? "trash" : "folder";
 				$_r["children"] = true;
 			}
 			$contents[] = $_r;
