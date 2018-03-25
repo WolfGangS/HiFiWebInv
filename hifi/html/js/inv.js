@@ -123,12 +123,14 @@ $(document).ready(function() {
                 },
             },
             check_callback: function(op, node, parent, data, extra) {
+                let oldpath = "";
+                let newpath = "";
                 switch (op) {
                     case "rename_node":
                         if (data == node.data.name) {
                             return false;
                         }
-                        let oldpath = node.data.path;
+                        oldpath = node.data.path;
                         let newpath = oldpath;
                         if (oldpath.length == node.data.name) {
                             newpath = data;
@@ -146,8 +148,8 @@ $(document).ready(function() {
                         return api.delete(node, node.data.path);
                         break;
                     case "move_node":
-                        let oldpath = node.data.path;
-                        let newpath = (parent.id != "#" ? parent.data.path + "/" : "") + node.data.name;
+                        oldpath = node.data.path;
+                        newpath = (parent.id != "#" ? parent.data.path + "/" : "") + node.data.name;
                         console.log(op,oldpath,newpath);
                         return true;
                         break;
