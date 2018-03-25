@@ -102,9 +102,10 @@ case 'GET':
 				$type = finfo_file($finfo, $path . $item);
 				$_r["li_attr"]["data-type"] = $type;
 				$_r["a_attr"]["data-type"] = $type;
+				$_r["children"] = false;
 			} else {
 				$_r["type"] = "folder";
-				$_r["children"] = ["a","b"];
+				$_r["children"] = true;
 			}
 			$contents[] = $_r;
 		}
