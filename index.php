@@ -118,7 +118,7 @@ case 'GET':
 		$finfo = finfo_open(FILEINFO_MIME_TYPE);
 		$type = finfo_file($finfo, $path);
 		finfo_close($finfo);
-
+        
 		if ($type != "text/plain") {
 			header('Content-Description: File Transfer');
 			header('Content-Type: application/octet-stream');
@@ -129,7 +129,7 @@ case 'GET':
 			header('Content-Length: ' . filesize($path));
 		}
 		if (endsWith($path, ".json")) {
-			header('Content-Type: application/json');
+    		header('Content-Type: application/json'
 		}
 		readfile($path);
 		die();

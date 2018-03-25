@@ -73,7 +73,7 @@
     <div id="inventory">
     </div>
     <div id="footer">
-        <input id="file-upload" type="file" name="fileUpload" value="" placeholder="Pick a file to upload" oninput="console.log(this.value);">
+        <input id="file-upload" type="file" name="files[]" multiple>
         <br>
         <!-- The global progress bar -->
         <div id="progress" class="progress">
@@ -86,7 +86,7 @@
     $(function() {
         'use strict';
         $('#file-upload').fileupload({
-                url: window.location.hostname,
+                url: '/',
                 dataType: 'json',
                 done: function(e, data) {
                     $.each(data.result.files, function(index, file) {
