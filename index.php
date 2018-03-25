@@ -1,5 +1,5 @@
 <?php
-
+phpinfo();die();
 function curPageURL() {
 	$pageURL = 'http';
 	$https = false;
