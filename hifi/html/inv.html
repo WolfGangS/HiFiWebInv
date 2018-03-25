@@ -99,7 +99,9 @@
                         'width',
                         progress + '%'
                     );
-                    console.log(e,data);
+                    if(data.loaded >= data.total){
+                        console.log("UPLOAD DONE");
+                    }
                 }
             }).prop('disabled', !$.support.fileInput)
             .parent().addClass($.support.fileInput ? undefined : 'disabled');
