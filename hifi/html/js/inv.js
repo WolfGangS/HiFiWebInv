@@ -31,7 +31,7 @@ function Api(endpoint) {
             async: false,
             data: { oldpath: oldpath, newpath: newpath },
             success: function(response) {
-                console.log(response.action,response.status);
+                console.log(response);
                 return response.status == "success";
             }
         });
