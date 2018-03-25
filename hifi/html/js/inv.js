@@ -75,13 +75,16 @@ $(document).ready(function() {
             check_callback: true
         },
         types: {
-            default: {
-                icon: "glyphicon glyphicon-flash"
-            },
-            folder: {
-                icon: "glyphicon glyphicons-folder-closed"
-            }
-        },
-        plugins: ["contextmenu", "sort", "type", "unique"]
+            "folder": { icon: "glyphicon glyphicon-folder-open" },
+            "file": { icon: "glyphicon glyphicon-file", max_children: 0 },
+            "fbx": { icon: "glyphicon glyphicon-file", max_children: 0 },
+            "fst": { icon: "glyphicon glyphicon-file", max_children: 0 },
+            "png": { icon: "glyphicon glyphicon-picture", max_children: 0 },
+            "jpg": { icon: "glyphicon glyphicon-picture", max_children: 0 },
+            "jpeg": { icon: "glyphicon glyphicon-picture", max_children: 0 },
+            "bmp": { icon: "glyphicon glyphicon-picture", max_children: 0 },
+        }
+        search: { show_only_matches: true },
+        plugins: ["contextmenu", "sort", "type", "unique", "wholerow"]
     });
 });
