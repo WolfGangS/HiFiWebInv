@@ -157,16 +157,20 @@ case "POST":
 		}
 		break;
 	case 'move':
-		if (!empty($_POST["oldpath"])) {
-			if (!empty($_POST["newpath"])) {
-				$op = "inv/" . pathclean($_POST["oldpath"], "/");
-				$np = "inv/" . pathclean($_POST["newpath"], "/");
-				if (file_exists($op)) {
-					if (rename($op, $np)) {
-						$response["status"] = "success";
-					}
+		if (!empty($_POST["oldpath"]) && !empty($_POST["newpath"])) {
+			$op = "inv/" . pathclean($_POST["oldpath"], "/");
+			$np = "inv/" . pathclean($_POST["newpath"], "/");
+			if (file_exists($op)) {
+				if (rename($op, $np)) {
+					$response["status"] = "success";
+				} else {
+					$response["message"] = "Rename failed";
 				}
+			} else {
+				$response["message"] = "File does not exist";
 			}
+		} else {
+			$response["message"] = "Missing parameters";
 		}
 		break;
 	case 'copy':
