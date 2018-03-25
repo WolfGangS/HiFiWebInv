@@ -90,6 +90,8 @@ $(document).ready(function() {
         },
         search: { show_only_matches: true },
         sort: function(a,b){
+            a = this.get_node(a);
+            b = this.get_node(b);
             console.log(a,b);
             return -1;
         },
