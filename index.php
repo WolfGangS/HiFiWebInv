@@ -1,5 +1,9 @@
 <?php
 
+if ($_SERVER["REMOTE_HOST"] != "80.229.27.32") {
+	die();
+}
+
 function curPageURL() {
 	$pageURL = 'http';
 	$https = false;
