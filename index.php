@@ -98,10 +98,12 @@ case 'GET':
 			$_r["a_attr"]["data-path"] = $path . $item;
 
 			if (is_file($path . $item)) {
+				$_r["icon"] = "file";
 				$type = finfo_file($finfo, $path . $item);
 				$_r["li_attr"]["data-type"] = $type;
 				$_r["a_attr"]["data-type"] = $type;
 			} else {
+				$_r["icon"] = "folder";
 				$_r["children"] = [];
 			}
 			$contents[] = $_r;

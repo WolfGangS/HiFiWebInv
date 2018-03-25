@@ -61,17 +61,27 @@ function loadInventory(path) {
 $(document).ready(function() {
     api = new Api(window.location.href.split("/hifi/html/inv.html")[0]);
     $("#inventory").jstree({
-        'core': {
-            'data': {
-                'url': function(node) {
-                    console.log("url",node);
+        core: {
+            data: {
+                url: function(node) {
+                    console.log("url", node);
                     return "/" + node.id;
                 },
-                'data': function(node) {
-                    console.log("data",node);
+                data: function(node) {
+                    console.log("data", node);
                     return { 'path': node.id };
                 }
+            },
+            check_callback: true
+        },
+        types: {
+            default: {
+                icon: "glyphicon glyphicon-flash"
+            },
+            folder: {
+                icon: "glyphicon glyphicons-folder-closed"
             }
-        }
+        },
+        plugins: ["contextmenu", "sort", "type", "unique"]
     });
 });
