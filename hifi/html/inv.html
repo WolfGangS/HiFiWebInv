@@ -100,8 +100,8 @@
                         progress + '%'
                     );
                     if(data.loaded >= data.total){
-                        console.log("UPLOAD DONE");
-                        $("#inventory").jstree(true).refresh_node("aW52Ly91cGxvYWRz");
+                        window.setTimeout(function(){
+                        $("#inventory").jstree(true).refresh_node("aW52Ly91cGxvYWRz");},500);
                     }
                 }
             }).prop('disabled', !$.support.fileInput)
