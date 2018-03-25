@@ -143,11 +143,11 @@ $(document).ready(function() {
                     return api.delete(node, node.data.path);
                 } else if (op == "move_node") {
                     if(parent.id != "#" && parent.type != "folder" && parent.type != "trash"){
-                        parent = parent.parent;
-                        node.parent = parent;
+                        parent = inventree.get_node(parent.parent);
+                        node.parent = parent.id;
                     }
                     let oldpath = node.data.path;
-                    let newpath = (parent != "#" ? parent.data.path + "/" : "") + node.data.name;
+                    let newpath = (parent.id != "#" ? parent.data.path + "/" : "") + node.data.name;
                     let s = api.move(node, oldpath, newpath);
                     if (s) {
                         window.setTimeout(function() { if (parent.id == "#") { inventree.refresh(); } else { inventree.refresh_node(parent); } }, 100);
