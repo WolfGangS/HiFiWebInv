@@ -80,7 +80,7 @@ case 'GET':
 			"state" => [
 				"opened" => false,  // is the node open
     			"disabled" => false,  // is the node disabled
-    			"selected" => fasle,
+    			"selected" => false,
 			],
 			//"children"	=> [],
 			"li_attr" => [],
