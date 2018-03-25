@@ -24,41 +24,32 @@ function Api(endpoint) {
             }
         });
     }
-    that.rename = function(node, oldpath, newpath) {
-        let success = false;
+    that.post = function(url,data){
+        let response = null;
         $.ajax({
-            url: "/rename",
+            url: "/" + url,
             method: "POST",
             async: false,
-            data: { oldpath: oldpath, newpath: newpath },
+            data: data,
             success: function(response) {
-                console.log(response);
-                success =  response.status == "success";
+                data = response;
             }
         });
-        return success;
+        if(data.status != "success"){
+            $("#alert-modal").modal('show');
+        }
+        return data;
+    }
+    that.rename = function(node, oldpath, newpath) {
+        let data = that.post("rename",{ oldpath: oldpath, newpath: newpath });
+        return data.status == "success";
     }
     that.move = function(node, path, name) {
         return that.rename(node, path, name);
     }
     that.delete = function(node,path){
-        let success = false;
-        let msg = "";
-        $.ajax({
-            url: "/rename",
-            method: "POST",
-            async: false,
-            data: { path: path },
-            success: function(response) {
-                console.log(response);
-                msg = response.message;
-                success =  response.status == "success";
-            }
-        });
-        if(!success){
-            $("#alert-modal").modal('show');
-        }
-        return success;
+        let data = that.post("delete",{path:path});
+        return data.status == "success";
     }
     return that;
 }
