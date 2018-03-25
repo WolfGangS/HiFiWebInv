@@ -24,7 +24,7 @@ function Api(endpoint) {
             }
         });
     }
-    that.post = function(url,data){
+    that.post = function(url, data) {
         let response = null;
         $.ajax({
             url: "/" + url,
@@ -35,21 +35,27 @@ function Api(endpoint) {
                 data = response;
             }
         });
-        if(data.status != "success"){
+        data.success = data.status == "success";
+        if (data.status != "success") {
             $("#alert-modal-text").text(data.message);
             $("#alert-modal").modal('show');
         }
         return data;
     }
     that.rename = function(node, oldpath, newpath) {
-        let data = that.post("rename",{ oldpath: oldpath, newpath: newpath });
-        return data.status == "success";
+        let response = that.post("rename", { oldpath: oldpath, newpath: newpath });
+        if (response.success) {
+            node.data = response.data;
+            return true;
+        } else {
+            return false;
+        }
     }
     that.move = function(node, path, name) {
         return that.rename(node, path, name);
     }
-    that.delete = function(node,path){
-        let data = that.post("delete",{path:path});
+    that.delete = function(node, path) {
+        let data = that.post("delete", { path: path });
         return data.status == "success";
     }
     return that;
@@ -118,6 +124,9 @@ $(document).ready(function() {
             check_callback: function(op, node, parent, data, extra) {
                 switch (op) {
                     case "rename_node":
+                        if (data == node.data.name) {
+                            return false;
+                        }
                         let oldpath = node.data.path;
                         let newpath = oldpath;
                         if (oldpath.length == node.data.name) {
@@ -128,7 +137,7 @@ $(document).ready(function() {
                         return api.rename(node, oldpath, newpath);
                         break;
                     case "delete_node":
-                        return api.delete(node,node.data.path);
+                        return api.delete(node, node.data.path);
                         break;
                     default:
                         console.log(op, node.data.path, data);

@@ -159,11 +159,16 @@ case "POST":
 	case 'rename':
 		if (!empty($_POST["oldpath"]) && !empty($_POST["newpath"])) {
 			$op = "inv/" . pathclean($_POST["oldpath"], "/");
-			$np = "inv/" . pathclean($_POST["newpath"], "/");
+            $_np = pathclean($_POST["newpath"], "/");
+			$np = "inv/" . $_np;
 			if (file_exists($op)) {
 				if (!file_exists($np)) {
 					if (rename($op, $np)) {
 						$response["status"] = "success";
+                        $response["data"] = [
+                            "path" => $_np,
+                            "name" => basename($np);
+                        ];
 					} else {
 						$response["message"] = "Rename failed";
 					}
@@ -183,11 +188,16 @@ case "POST":
 	case 'delete':
 		if (!empty($_POST["path"])) {
 			$op = "inv/" . pathclean($_POST["path"], "/");
-			$np = "inv/trash/" . basename($path);
+            $_np = "trash/" . basename($path);
+			$np = "inv/" . $_np;
 			if (file_exists($op)) {
 				if (!file_exists($np)) {
 					if (rename($op, $np)) {
 						$response["status"] = "success";
+                        $response["data"] = [
+                            "path" => $_np,
+                            "name" => basename($np);
+                        ];
 					} else {
 						$response["message"] = "Rename failed";
 					}
