@@ -170,6 +170,7 @@ case "POST":
 		break;
 	case 'move':
 		$response["post"] = $_POST;
+		$response["trim"] = trim("//asasd/asd////", "/");
 		break;
 	case 'copy':
 		$response["post"] = $_POST;
