@@ -24,20 +24,20 @@ function Api(endpoint) {
             }
         });
     }
-    that.move = function(oldpath, newpath) {
+    that.move = function(node, oldpath, newpath) {
         $.ajax({
             url: "/move",
             method: "POST",
             async: false,
             data: { oldpath: oldpath, newpath: newpath },
             success: function(response) {
-                console.log(response.action,response.success);
+                console.log(response.action,response.status);
                 return response.status == "success";
             }
         });
-        return false;
+        //return false;
     }
-    that.rename = function(path, name) {
+    that.rename = function(node, path, name) {
         return that.move(path, name);
     }
     return that;
