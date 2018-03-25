@@ -138,12 +138,18 @@ $(document).ready(function() {
                         let s = api.rename(node, oldpath, newpath);
                         parrr = parent;
                         if(s){
-                            window.setTimeout(function(){inventree.refresh_node(parent);},100);
+                            window.setTimeout(function(){if(parent.id == "#"){inventree.refresh();}else{inventree.refresh_node(parent);}},100);
                         }
                         return s;
                         break;
                     case "delete_node":
                         return api.delete(node, node.data.path);
+                        break;
+                    case "move_node":
+                        let oldpath = node.data.path;
+                        let newpath = (parent.id != "#" ? parent.data.path + "/" : "") + node.data.name;
+                        console.log(op,oldpath,newpath);
+                        return true;
                         break;
                     default:
                         console.log(op, node.data.path, data);
