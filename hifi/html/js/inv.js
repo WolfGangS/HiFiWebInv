@@ -138,7 +138,7 @@ $(document).ready(function() {
                         let s = api.rename(node, oldpath, newpath);
                         parrr = parent;
                         if(s){
-                            inventree.refresh_node(parent);
+                            //inventree.refresh_node(parent);
                         }
                         return s;
                         break;
