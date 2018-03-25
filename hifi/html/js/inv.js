@@ -148,7 +148,7 @@ $(document).ready(function() {
                     }
                     let oldpath = node.data.path;
                     console.log(parent,parent.id);
-                    let newpath = (parent.id != "#" ? parent.data.path + "/" : "") + node.data.name;
+                    let newpath = (parent != "#" ? parent.data.path + "/" : "") + node.data.name;
                     console.log(op, oldpath, newpath);
                     return true;
                 } else {
