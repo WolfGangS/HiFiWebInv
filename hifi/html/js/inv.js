@@ -13,15 +13,30 @@ function Api(endpoint) {
         that.after = cb;
         return that;
     }
-    that.rename = function(path, name) {
+    that.copy = function(oldpath,newpath){
         $.ajax({
-            url: "/rename",
-            async: false,
-            data: { path: path, name: name },
+            url : "/copy",
+            method: "POST",
+            async : false,
+            data: {oldpath:oldpath,newpath:newpath},
             success: function(response) {
                 console.log(response);
             }
         });
+    }
+    that.move = function(oldpath,newpath){
+        $.ajax({
+            url : "/move",
+            method: "POST",
+            async : false,
+            data: {oldpath:oldpath,newpath:newpath},
+            success: function(response) {
+                console.log(response);
+            }
+        });
+    }
+    that.rename = function(path, name) {
+        return that.move(path,name);
     }
     return that;
 }
