@@ -44,7 +44,7 @@ function pathclean($path) {
 	$_path = [];
 	$path = explode("/", $path);
 	foreach ($path as $p) {
-		if (!empty($path) && substr($path, 0, 1) != ".") {
+		if (!empty($p) && substr($p, 0, 1) != ".") {
 			$_path[] = $p;
 		}
 	}
