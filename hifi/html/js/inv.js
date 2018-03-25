@@ -123,39 +123,33 @@ $(document).ready(function() {
                 },
             },
             check_callback: function(op, node, parent, data, extra) {
-                let oldpath = "";
-                let newpath = "";
-                switch (op) {
-                    case "rename_node":
-                        if (data == node.data.name) {
-                            return false;
-                        }
-                        oldpath = node.data.path;
-                        let newpath = oldpath;
-                        if (oldpath.length == node.data.name) {
-                            newpath = data;
-                        } else {
-                            newpath = newpath.substring(0, newpath.length - node.data.name.length) + data;
-                        }
-                        let s = api.rename(node, oldpath, newpath);
-                        parrr = parent;
-                        if(s){
-                            window.setTimeout(function(){if(parent.id == "#"){inventree.refresh();}else{inventree.refresh_node(parent);}},100);
-                        }
-                        return s;
-                        break;
-                    case "delete_node":
-                        return api.delete(node, node.data.path);
-                        break;
-                    case "move_node":
-                        oldpath = node.data.path;
-                        newpath = (parent.id != "#" ? parent.data.path + "/" : "") + node.data.name;
-                        console.log(op,oldpath,newpath);
-                        return true;
-                        break;
-                    default:
-                        console.log(op, node.data.path, data);
-                        break;
+                if (op == "rename_node") {
+                    if (data == node.data.name) {
+                        return false;
+                    }
+                    let oldpath = node.data.path;
+                    let newpath = oldpath;
+                    if (oldpath.length == node.data.name) {
+                        newpath = data;
+                    } else {
+                        newpath = newpath.substring(0, newpath.length - node.data.name.length) + data;
+                    }
+                    let s = api.rename(node, oldpath, newpath);
+                    parrr = parent;
+                    if (s) {
+                        window.setTimeout(function() { if (parent.id == "#") { inventree.refresh(); } else { inventree.refresh_node(parent); } }, 100);
+                    }
+                    return s;
+                } else if (op == "delete_node") {
+                    return api.delete(node, node.data.path);
+                    break;
+                } else if (op == "move_node") {
+                    let oldpath = node.data.path;
+                    let newpath = (parent.id != "#" ? parent.data.path + "/" : "") + node.data.name;
+                    console.log(op, oldpath, newpath);
+                    return true;
+                } else {
+                    console.log(op, node.data.path, data);
                 }
             },
         },
