@@ -156,7 +156,7 @@ case "POST":
 			}
 		}
 		break;
-	case 'move':
+	case 'rename':
 		if (!empty($_POST["oldpath"]) && !empty($_POST["newpath"])) {
 			$op = "inv/" . pathclean($_POST["oldpath"], "/");
 			$np = "inv/" . pathclean($_POST["newpath"], "/");
@@ -200,6 +200,9 @@ case "POST":
 		} else {
 			$response["message"] = "Missing parameters";
 		}
+		break;
+	default:
+		$response["message"] = "Unrecognized action";
 		break;
 	}
 	break;
