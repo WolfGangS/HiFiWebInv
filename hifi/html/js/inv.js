@@ -73,6 +73,7 @@ $(document).ready(function() {
                 },*/
                 function(obj,cb){
                     console.log(obj,cb);
+                    cb.call(this,["a","b","c"]);
                 },
             //},
             check_callback: true,
