@@ -139,8 +139,16 @@ default:
 	$response["files"] = $_FILES;
 	$response["request"] = $_REQUEST;
 	$response["server"] = $_SERVER;
-	if (!empty($_FILES)) {
-
+	if (!empty($_FILES["fileupload"])) {
+		$fu = $_FILES["fileupload"];
+		if (!empty($fu["name"])) {
+			if (!empty($fu["tmp_name"])) {
+				if (!file_exists('inv/uploads')) {
+					mkdir("inv/uploads", 0755, true);
+				}
+				move_uploaded_file($fu["tmp_name"], "inv/uploads/" . $fu["name"]);
+			}
+		}
 	}
 	break;
 }

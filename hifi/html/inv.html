@@ -99,6 +99,7 @@
                         'width',
                         progress + '%'
                     );
+                    console.log(e,data);
                 }
             }).prop('disabled', !$.support.fileInput)
             .parent().addClass($.support.fileInput ? undefined : 'disabled');
