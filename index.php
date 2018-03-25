@@ -1,5 +1,5 @@
 <?php
-phpinfo();die();
+
 function curPageURL() {
 	$pageURL = 'http';
 	$https = false;
@@ -28,12 +28,12 @@ function endsWith($haystack, $needle) {
 }
 
 function base64url_encode($data) {
-  return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+	return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
 }
 
 function base64url_decode($data) {
-  return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
-} 
+	return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
+}
 
 $url = parse_url(curPageURL());
 
@@ -70,8 +70,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
 case 'GET':
 	if (is_dir($path)) {
 		$path .= "/";
-		if(strlen($rp) > 0){
-			$rp .= "/";	
+		if (strlen($rp) > 0) {
+			$rp .= "/";
 		}
 		$_contents = scandir($path);
 		$contents = [];
@@ -81,9 +81,9 @@ case 'GET':
 			"text" => "n/a",
 			//"icon"	=> "icon",
 			"state" => [
-				"opened" => false,  // is the node open
-    			"disabled" => false,  // is the node disabled
-    			"selected" => false,
+				"opened" => false, // is the node open
+				"disabled" => false, // is the node disabled
+				"selected" => false,
 			],
 			//"children"	=> [],
 			"li_attr" => [],
@@ -95,7 +95,7 @@ case 'GET':
 				continue;
 			}
 			$_r = $record;
-			$_r["id"] = base64url_encode($path.$item);
+			$_r["id"] = base64url_encode($path . $item);
 			$_r["text"] = $item;
 			$_r["li_attr"]["data-path"] = $rp . $item;
 			$_r["a_attr"]["data-path"] = $rp . $item;
@@ -118,7 +118,7 @@ case 'GET':
 		$finfo = finfo_open(FILEINFO_MIME_TYPE);
 		$type = finfo_file($finfo, $path);
 		finfo_close($finfo);
-        
+
 		if ($type != "text/plain") {
 			header('Content-Description: File Transfer');
 			header('Content-Type: application/octet-stream');
@@ -129,7 +129,7 @@ case 'GET':
 			header('Content-Length: ' . filesize($path));
 		}
 		if (endsWith($path, ".json")) {
-    		header('Content-Type: application/json');
+			header('Content-Type: application/json');
 		}
 		readfile($path);
 		die();
@@ -139,6 +139,9 @@ default:
 	$response["files"] = $_FILES;
 	$response["request"] = $_REQUEST;
 	$response["server"] = $_SERVER;
+	if (!empty($_FILES)) {
+
+	}
 	break;
 }
 header('Content-Type: application/json');
