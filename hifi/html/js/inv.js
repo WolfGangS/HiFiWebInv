@@ -142,7 +142,6 @@ $(document).ready(function() {
                     return s;
                 } else if (op == "delete_node") {
                     return api.delete(node, node.data.path);
-                    break;
                 } else if (op == "move_node") {
                     let oldpath = node.data.path;
                     let newpath = (parent.id != "#" ? parent.data.path + "/" : "") + node.data.name;
