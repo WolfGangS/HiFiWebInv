@@ -111,6 +111,7 @@ $(document).ready(function() {
         console.log("MOVE_NODE", e, data);
     }).on('rename_node.jstree', function(e, data) {
         console.log("RENAME", e, data);
+        return false;
     }).on('delete_node.jstree', function(e, data) {
         console.log("DELETE", e, data);
     }).on('create_node.jstree', function(e, data) {
