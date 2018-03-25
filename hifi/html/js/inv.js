@@ -138,9 +138,9 @@ $(document).ready(function() {
                         let s = api.rename(node, oldpath, newpath);
                         parrr = parent;
                         if(s){
-                            //inventree.refresh_node(parent);
+                            window.setTimeout(function(){inventree.refresh_node(parent);},100);
                         }
-                        return false;//s;
+                        return s;
                         break;
                     case "delete_node":
                         return api.delete(node, node.data.path);
