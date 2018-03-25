@@ -89,6 +89,10 @@ $(document).ready(function() {
             "bmp": { icon: "glyphicon glyphicon-picture", max_children: 0 },
         },
         search: { show_only_matches: true },
+        sort: function(a,b){
+            console.log(a,b);
+            return -1;
+        },
         plugins: ["contextmenu", "sort", "types", "unique", "wholerow"],
     });
 });
