@@ -56,7 +56,7 @@ function Api(endpoint) {
     }
     that.delete = function(node, path) {
         let data = that.post("delete", { path: path });
-        return data.status == "success";
+        return data.success;
     }
     return that;
 }

@@ -197,7 +197,7 @@ case "POST":
 	case 'delete':
 		if (!empty($_POST["path"])) {
 			$op = "inv/" . pathclean($_POST["path"], "/");
-			$_np = "trash/" . basename($path);
+			$_np = "trash/" . basename($op);
 			$np = "inv/" . $_np;
 			if (file_exists($op)) {
 				if (!file_exists($np)) {
