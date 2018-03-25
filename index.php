@@ -54,7 +54,7 @@ foreach ($path as $p) {
 
 $path = implode("/", $_path);
 
-$response = ["path" => $path];
+$response = [];
 
 $path = "inv/" . $path;
 
@@ -63,7 +63,7 @@ case 'GET':
 	if (is_dir($path)) {
 		$path .= "/";
 		$_contents = scandir($path);
-		$contents = ["files" => [], "dirs" => []];
+		$contents = [];
 		$finfo = finfo_open(FILEINFO_MIME_TYPE);
 		$record = [
 			"id" => null,
@@ -99,7 +99,7 @@ case 'GET':
 			$contents[] = $_r;
 		}
 		finfo_close($finfo);
-		$response["dir"] = $contents;
+		$response = $contents;
 	} else if (is_file($path)) {
 		$finfo = finfo_open(FILEINFO_MIME_TYPE);
 		$type = finfo_file($finfo, $path);
